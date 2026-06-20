@@ -1,24 +1,32 @@
-# LIA AI — Personal Intelligence
+# LIA AI Full Structure
 
-ليا هي مساعد ذكاء اصطناعي شخصي خاص بهشام فقط.
+نسخة كاملة مبدئية لمشروع ليا الشخصي.
 
-## النسخة الحالية
+## المميزات
 
-- واجهة هوية كاملة
-- شاشة محادثة فاخرة
-- اتصال مع Gemini عبر Railway
-- API: `/chat`
-- صفحة رئيسية تعمل من نفس رابط Railway
+- شاشة دخول خاصة
+- واجهة إنشاء حساب مبدئية
+- واجهة محادثة فاخرة
+- ربط Gemini عبر Railway
+- شاشة صوتية
+- مهام وملاحظات مؤقتة عبر LocalStorage
+- بنية جاهزة لاحقًا لـ Firebase و Android
+
+## كود الدخول التجريبي
+
+```txt
+lia-hesham
+```
+
+## Railway Variables
+
+```txt
+GEMINI_API_KEY=your_key
+```
 
 ## التشغيل
 
 ```bash
 npm install
 npm start
-```
-
-## المتغيرات المطلوبة في Railway
-
-```txt
-GEMINI_API_KEY=ضع_مفتاح_جيميني_هنا
 ```

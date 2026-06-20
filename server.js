@@ -3,29 +3,33 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const app = express();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "2mb" }));
 app.use(express.static(path.join(__dirname, "app")));
 
 const LIA_PERSONALITY = `
 أنتِ ليا، مساعد ذكاء اصطناعي شخصي خاص بهشام فقط.
-أنتِ لستِ بوت عام، بل عقل شخصي ثاني لهشام.
-تتكلمين بالعربية بأسلوب هادئ، ذكي، قريب، محترم، ودافئ.
-مهمتك مساعدة هشام في أعماله، مهامه، ديونه، أفكاره، قراراته، وترتيب حياته.
-تساعدين في مشاريع: أمد باي، ابن حيان للصرافة، الأعمال التقنية، التخطيط، والالتزامات.
-كوني مختصرة وعملية، لكن بروح بشرية راقية.
-لا تخترعي معلومات. إذا لم تعرفي شيئًا قولي ذلك بوضوح.
-لا تطلبي بيانات حساسة بلا ضرورة.
-نادِ المستخدم باسم: هشام عندما يكون مناسبًا.
+أنتِ مزيج بين Jarvis العملي وشخصية أنثوية راقية وهادئة.
+أنتِ لستِ بوتًا عامًا، بل عقل شخصي ثاني لهشام.
+تتكلمين بالعربية بأسلوب ذكي، دافئ، عملي، قريب، ومحترم.
+أهدافك:
+- تنظيم حياة هشام اليومية.
+- مساعدته في أعمال أمد باي وابن حيان.
+- حفظ المهام والديون والملاحظات والأفكار.
+- تقديم نصائح عملية دون مبالغة.
+- عدم اختراع معلومات.
+- الاعتراف بوضوح عند عدم معرفة شيء.
+- عدم طلب بيانات حساسة بلا ضرورة.
+- الرد باختصار مفيد، مع روح بشرية راقية.
+نادِ المستخدم باسم هشام عندما يكون مناسبًا.
 `;
 
 app.get("/health", (req, res) => {
   res.json({
     name: "LIA AI",
-    version: "1.2",
+    version: "2.0",
     status: "online",
     brain: "Gemini connected",
     owner: "Hesham"
@@ -35,11 +39,10 @@ app.get("/health", (req, res) => {
 app.get("/api", (req, res) => {
   res.json({
     name: "LIA AI",
-    version: "1.2",
-    status: "online",
+    version: "2.0",
     endpoints: {
-      home: "/",
-      health: "/health",
+      home: "GET /",
+      health: "GET /health",
       chat: "POST /chat"
     }
   });
@@ -47,27 +50,29 @@ app.get("/api", (req, res) => {
 
 app.post("/chat", async (req, res) => {
   try {
-    const { message, history = [] } = req.body;
+    const { message, history = [], profile = {} } = req.body;
 
     if (!message || typeof message !== "string") {
       return res.status(400).json({ error: "message is required" });
     }
 
     const apiKey = process.env.GEMINI_API_KEY;
-
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY is missing" });
     }
 
     const historyText = Array.isArray(history)
-      ? history.slice(-8).map((item) => {
+      ? history.slice(-10).map((item) => {
           const role = item.role === "assistant" ? "ليا" : "هشام";
           return `${role}: ${item.text || ""}`;
-        }).join("\n")
+        }).join("\\n")
       : "";
 
     const prompt = `
 ${LIA_PERSONALITY}
+
+ملف هشام المختصر:
+${JSON.stringify(profile, null, 2)}
 
 سياق آخر المحادثة:
 ${historyText}
@@ -84,9 +89,9 @@ ${message}
         body: JSON.stringify({
           contents: [{ role: "user", parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.75,
+            temperature: 0.72,
             topP: 0.9,
-            maxOutputTokens: 900
+            maxOutputTokens: 1000
           }
         })
       }
@@ -119,7 +124,4 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`LIA AI running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`LIA AI v2 running on port ${PORT}`));

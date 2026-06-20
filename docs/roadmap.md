@@ -1,22 +1,22 @@
 # LIA Roadmap
 
-## V1
-- واجهة محادثة
-- ربط Gemini
-- هوية ليا
-
-## V2
-- ذاكرة Firebase
-- المهام
-- الديون
-- الملاحظات
+## V2 الحالي
+- واجهة كاملة
+- دخول خاص
+- Gemini Chat
+- مهام وملاحظات مؤقتة
 
 ## V3
-- تطبيق Android
-- محادثة صوتية
-- إشعارات وتذكيرات
+- Firebase Authentication
+- Firestore Memory
+- Reminders
 
 ## V4
-- أوامر الهاتف
-- واتساب
-- مساعد عائم
+- Android App
+- Voice Assistant
+- Wake Word
+
+## V5
+- WhatsApp Actions
+- System Commands
+- Floating Assistant

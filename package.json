@@ -1,10 +1,11 @@
 {
-  "name": "lia-ai",
-  "version": "1.2.0",
+  "name": "lia-ai-personal",
+  "version": "2.0.0",
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "express": "^4.21.2"
