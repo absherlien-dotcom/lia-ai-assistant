@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIA AI — عقلك الثاني</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="brand-panel glass">
+      <div class="logo-mark">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="core">L</div>
+        <div class="spark spark-a"></div>
+        <div class="spark spark-b"></div>
+      </div>
+
+      <h1>LIA AI</h1>
+      <p class="tagline">عقلك الثاني.. يرتب فوضاك ويذكّرك بما يهمك.</p>
+
+      <div class="chips">
+        <span>ذكية</span>
+        <span>صوتية</span>
+        <span>خاصة</span>
+        <span>تتذكر</span>
+      </div>
+
+      <div class="identity-card">
+        <span class="label">شخصية ليا</span>
+        <p>هادئة، عملية، قريبة منك، تحفظ أفكارك وتساعدك في أعمالك وقراراتك اليومية.</p>
+      </div>
+
+      <div class="palette">
+        <span style="--c:#070B1F"></span>
+        <span style="--c:#151B3D"></span>
+        <span style="--c:#7B4DFF"></span>
+        <span style="--c:#E276FF"></span>
+        <span style="--c:#6CDFFF"></span>
+      </div>
+    </section>
+
+    <section class="phone glass">
+      <header class="phone-header">
+        <button class="icon-btn">☰</button>
+        <div>
+          <strong>ليا</strong>
+          <small>متصلة الآن</small>
+        </div>
+        <button class="icon-btn">⚙</button>
+      </header>
+
+      <section class="hero">
+        <p>مرحبًا هشام 👋</p>
+        <h2>كيف أساعدك اليوم؟</h2>
+        <div class="voice-orb" id="voiceOrb">
+          <span></span>
+          <b>LIA</b>
+        </div>
+      </section>
+
+      <section class="quick-grid">
+        <button data-prompt="ليا، رتبي مهامي لهذا اليوم.">مهامي</button>
+        <button data-prompt="ليا، سجلي ملاحظة جديدة.">ملاحظة</button>
+        <button data-prompt="ليا، ساعديني في تنظيم ديوني.">ديوني</button>
+        <button data-prompt="ليا، خططي لي يوم الغد.">تخطيط</button>
+      </section>
+
+      <section class="chat-card">
+        <div class="messages" id="messages">
+          <div class="message lia">
+            <span>ليا</span>
+            <p>أنا جاهزة يا هشام. اكتب ما تريد، وسأساعدك بذكاء وهدوء.</p>
+          </div>
+        </div>
+
+        <form id="chatForm" class="composer">
+          <input id="messageInput" type="text" placeholder="اكتب رسالتك إلى ليا..." autocomplete="off" />
+          <button type="submit">إرسال</button>
+        </form>
+      </section>
+    </section>
+
+    <section class="dashboard glass">
+      <h3>مركز ليا الشخصي</h3>
+
+      <div class="stat-card">
+        <span>المهام</span>
+        <strong>12</strong>
+        <small>مهام قابلة للتنظيم</small>
+      </div>
+
+      <div class="stat-card">
+        <span>الديون</span>
+        <strong>3</strong>
+        <small>التزامات للمتابعة</small>
+      </div>
+
+      <div class="stat-card">
+        <span>الملاحظات</span>
+        <strong>8</strong>
+        <small>أفكار محفوظة لاحقًا</small>
+      </div>
+
+      <div class="feature-list">
+        <p>✓ محادثة مع Gemini</p>
+        <p>✓ واجهة خاصة لهشام</p>
+        <p>✓ جاهزة للذاكرة لاحقًا</p>
+        <p>✓ قابلة للتحويل إلى تطبيق Android</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
