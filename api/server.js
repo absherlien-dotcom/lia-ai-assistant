@@ -1,4 +1,3 @@
-// LIA API Server
 import express from "express";
 
 const app = express();
