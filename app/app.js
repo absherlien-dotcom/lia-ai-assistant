@@ -23,8 +23,17 @@ function addMessage(role, text) {
   chatHistory.push({ role: role === "user" ? "user" : "assistant", text });
 }
 
+function formatError(data) {
+  if (data?.reply) return data.reply;
+  if (data?.message) return data.message;
+  if (data?.details?.error?.message) return data.details.error.message;
+  if (data?.details) return JSON.stringify(data.details, null, 2);
+  if (data?.error) return String(data.error);
+  return JSON.stringify(data, null, 2);
+}
+
 async function sendToLia(message) {
-  orb.classList.add("thinking");
+  if (orb) orb.classList.add("thinking");
 
   const waiting = document.createElement("div");
   waiting.className = "message lia";
@@ -40,7 +49,12 @@ async function sendToLia(message) {
       },
       body: JSON.stringify({
         message,
-        history: chatHistory
+        history: chatHistory,
+        profile: {
+          owner: "هشام",
+          assistant: "ليا",
+          projects: ["أمد باي", "ابن حيان للصرافة"]
+        }
       })
     });
 
@@ -48,18 +62,21 @@ async function sendToLia(message) {
     waiting.remove();
 
     if (!response.ok) {
-      addMessage("lia", "يا هشام، حصل خطأ في الاتصال. راجع إعدادات Gemini أو Railway.");
-      console.error(data);
+      addMessage("lia", formatError(data));
+      console.error("LIA API ERROR", data);
       return;
     }
 
-    addMessage("lia", data.reply || "لم يصلني رد واضح الآن.");
+    addMessage("lia", data.reply || formatError(data) || "لم يصلني رد واضح الآن.");
   } catch (error) {
     waiting.remove();
-    addMessage("lia", "يا هشام، لم أستطع الاتصال بالخادم الآن.");
+    addMessage(
+      "lia",
+      `يا هشام، فشل الاتصال بالسيرفر نفسه:\n${error.message}`
+    );
     console.error(error);
   } finally {
-    orb.classList.remove("thinking");
+    if (orb) orb.classList.remove("thinking");
   }
 }
 
