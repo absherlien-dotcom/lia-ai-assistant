@@ -47,6 +47,49 @@ function getGeminiErrorMessage(data, status) {
   );
 }
 
+function getGeminiKeyInfo() {
+  const possibleNames = [
+    "GEMINI_API_KEY",
+    "GEMINI_KEY",
+    "GOOGLE_API_KEY",
+    "GOOGLE_AI_API_KEY",
+    "GOOGLE_GENERATIVE_AI_API_KEY",
+    "GENERATIVE_LANGUAGE_API_KEY"
+  ];
+
+  for (const name of possibleNames) {
+    const value = process.env[name];
+
+    if (typeof value === "string" && value.trim().length > 0) {
+      return {
+        key: value.trim(),
+        source: name,
+        length: value.trim().length
+      };
+    }
+  }
+
+  return {
+    key: "",
+    source: null,
+    length: 0
+  };
+}
+
+function getSafeEnvReport() {
+  return Object.keys(process.env)
+    .filter((key) => {
+      const upper = key.toUpperCase();
+      return (
+        upper.includes("GEMINI") ||
+        upper.includes("GOOGLE") ||
+        upper.includes("API") ||
+        upper.includes("KEY")
+      );
+    })
+    .sort();
+}
+
 async function callGemini({ apiKey, prompt }) {
   const models = [
     process.env.GEMINI_MODEL,
@@ -119,24 +162,41 @@ async function callGemini({ apiKey, prompt }) {
 }
 
 app.get("/health", (req, res) => {
+  const keyInfo = getGeminiKeyInfo();
+
   res.json({
     name: "LIA AI",
-    version: "2.1",
+    version: "2.2",
     status: "online",
-    brain: "Gemini connected",
+    brain: "Gemini",
     owner: "Hesham",
-    hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
+    hasGeminiKey: Boolean(keyInfo.key),
+    geminiKeySource: keyInfo.source,
+    geminiKeyLength: keyInfo.length,
     model: process.env.GEMINI_MODEL || "auto"
+  });
+});
+
+app.get("/env-check", (req, res) => {
+  const keyInfo = getGeminiKeyInfo();
+
+  res.json({
+    hasGeminiKey: Boolean(keyInfo.key),
+    geminiKeySource: keyInfo.source,
+    geminiKeyLength: keyInfo.length,
+    matchingEnvNamesOnly: getSafeEnvReport(),
+    note: "This endpoint shows environment variable names only, not secret values."
   });
 });
 
 app.get("/api", (req, res) => {
   res.json({
     name: "LIA AI",
-    version: "2.1",
+    version: "2.2",
     endpoints: {
       home: "GET /",
       health: "GET /health",
+      envCheck: "GET /env-check",
       chat: "POST /chat"
     }
   });
@@ -152,12 +212,15 @@ app.post("/chat", async (req, res) => {
       });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const keyInfo = getGeminiKeyInfo();
 
-    if (!apiKey) {
+    if (!keyInfo.key) {
       return res.json({
         reply:
-          "يا هشام، مفتاح Gemini غير موجود في Railway. أضف المتغير GEMINI_API_KEY من تبويب Variables."
+          "يا هشام، ليا لا ترى مفتاح Gemini داخل السيرفر حتى الآن.\n\n" +
+          "افتح هذا الرابط للفحص:\n" +
+          "/env-check\n\n" +
+          "إذا لم يظهر GEMINI_API_KEY ضمن matchingEnvNamesOnly، فهذا يعني أن Railway لم يمرر المتغير للنسخة الشغالة."
       });
     }
 
@@ -184,7 +247,10 @@ ${historyText}
 ${message}
 `;
 
-    const result = await callGemini({ apiKey, prompt });
+    const result = await callGemini({
+      apiKey: keyInfo.key,
+      prompt
+    });
 
     if (!result.ok) {
       console.error("GEMINI_FAILED_ATTEMPTS:", JSON.stringify(result.attempts, null, 2));
@@ -194,6 +260,8 @@ ${message}
       return res.json({
         reply:
           `يا هشام، Gemini رجّع خطأ حقيقي:\n\n` +
+          `مصدر المفتاح: ${keyInfo.source}\n` +
+          `طول المفتاح: ${keyInfo.length}\n` +
           `الموديل: ${firstError?.model || "غير معروف"}\n` +
           `الكود: ${firstError?.status || "غير معروف"}\n` +
           `السبب: ${firstError?.error || "غير معروف"}\n\n` +
@@ -203,7 +271,8 @@ ${message}
 
     res.json({
       reply: result.reply,
-      model: result.model
+      model: result.model,
+      keySource: keyInfo.source
     });
   } catch (error) {
     console.error("LIA_CHAT_FAILED:", error);
@@ -223,5 +292,5 @@ app.get("*", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`LIA AI v2.1 running on port ${PORT}`);
+  console.log(`LIA AI v2.2 running on port ${PORT}`);
 });
