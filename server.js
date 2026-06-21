@@ -90,14 +90,22 @@ function getSafeEnvReport() {
     .sort();
 }
 
-async function callGemini({ apiKey, prompt }) {
+function getGeminiModels() {
   const models = [
     process.env.GEMINI_MODEL,
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-2.0-flash"
-  ].filter(Boolean);
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.5-flash-lite"
+  ]
+    .filter(Boolean)
+    .map((model) => model.trim())
+    .filter(Boolean);
 
+  return [...new Set(models)];
+}
+
+async function callGemini({ apiKey, prompt }) {
+  const models = getGeminiModels();
   const attempts = [];
 
   for (const model of models) {
@@ -166,14 +174,15 @@ app.get("/health", (req, res) => {
 
   res.json({
     name: "LIA AI",
-    version: "2.2",
+    version: "2.3",
     status: "online",
     brain: "Gemini",
     owner: "Hesham",
     hasGeminiKey: Boolean(keyInfo.key),
     geminiKeySource: keyInfo.source,
     geminiKeyLength: keyInfo.length,
-    model: process.env.GEMINI_MODEL || "auto"
+    model: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+    fallbackModels: getGeminiModels()
   });
 });
 
@@ -184,6 +193,8 @@ app.get("/env-check", (req, res) => {
     hasGeminiKey: Boolean(keyInfo.key),
     geminiKeySource: keyInfo.source,
     geminiKeyLength: keyInfo.length,
+    selectedModel: process.env.GEMINI_MODEL || "gemini-2.5-flash",
+    fallbackModels: getGeminiModels(),
     matchingEnvNamesOnly: getSafeEnvReport(),
     note: "This endpoint shows environment variable names only, not secret values."
   });
@@ -192,7 +203,7 @@ app.get("/env-check", (req, res) => {
 app.get("/api", (req, res) => {
   res.json({
     name: "LIA AI",
-    version: "2.2",
+    version: "2.3",
     endpoints: {
       home: "GET /",
       health: "GET /health",
@@ -220,7 +231,7 @@ app.post("/chat", async (req, res) => {
           "يا هشام، ليا لا ترى مفتاح Gemini داخل السيرفر حتى الآن.\n\n" +
           "افتح هذا الرابط للفحص:\n" +
           "/env-check\n\n" +
-          "إذا لم يظهر GEMINI_API_KEY ضمن matchingEnvNamesOnly، فهذا يعني أن Railway لم يمرر المتغير للنسخة الشغالة."
+          "إذا لم يظهر GEMINI_API_KEY ضمن matchingEnvNamesOnly، فهذا يعني أن منصة النشر لم تمرر المتغير للنسخة الشغالة."
       });
     }
 
@@ -253,7 +264,10 @@ ${message}
     });
 
     if (!result.ok) {
-      console.error("GEMINI_FAILED_ATTEMPTS:", JSON.stringify(result.attempts, null, 2));
+      console.error(
+        "GEMINI_FAILED_ATTEMPTS:",
+        JSON.stringify(result.attempts, null, 2)
+      );
 
       const firstError = result.attempts?.[0];
 
@@ -292,5 +306,5 @@ app.get("*", (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`LIA AI v2.2 running on port ${PORT}`);
+  console.log(`LIA AI v2.3 running on port ${PORT}`);
 });
