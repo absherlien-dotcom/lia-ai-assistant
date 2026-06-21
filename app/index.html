@@ -3,118 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LIA AI — عقلك الثاني</title>
+  <title>LIA AI — مساعد هشام الشخصي</title>
+  <meta name="theme-color" content="#070A18" />
+  <meta name="description" content="LIA AI — Personal Intelligence for Hesham" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <main class="shell">
-    <section class="brand-panel glass">
-      <div class="logo-mark">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-        <div class="core">L</div>
-        <div class="spark spark-a"></div>
-        <div class="spark spark-b"></div>
+  <div class="lia-bg"><div class="glow glow-a"></div><div class="glow glow-b"></div><div class="glow glow-c"></div><div class="grid-layer"></div></div>
+  <main class="lia-shell">
+    <aside class="sidebar glass">
+      <div class="brand-row">
+        <button class="mobile-menu" id="closeMenu" aria-label="إغلاق القائمة">×</button>
+        <div class="lia-mark small" aria-label="LIA Logo"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div>
+        <div class="brand-text"><strong>LIA AI</strong><small>Personal Intelligence</small></div>
       </div>
-
-      <h1>LIA AI</h1>
-      <p class="tagline">عقلك الثاني.. يرتب فوضاك ويذكّرك بما يهمك.</p>
-
-      <div class="chips">
-        <span>ذكية</span>
-        <span>صوتية</span>
-        <span>خاصة</span>
-        <span>تتذكر</span>
-      </div>
-
-      <div class="identity-card">
-        <span class="label">شخصية ليا</span>
-        <p>هادئة، عملية، قريبة منك، تحفظ أفكارك وتساعدك في أعمالك وقراراتك اليومية.</p>
-      </div>
-
-      <div class="palette">
-        <span style="--c:#070B1F"></span>
-        <span style="--c:#151B3D"></span>
-        <span style="--c:#7B4DFF"></span>
-        <span style="--c:#E276FF"></span>
-        <span style="--c:#6CDFFF"></span>
-      </div>
-    </section>
-
-    <section class="phone glass">
-      <header class="phone-header">
-        <button class="icon-btn">☰</button>
-        <div>
-          <strong>ليا</strong>
-          <small>متصلة الآن</small>
-        </div>
-        <button class="icon-btn">⚙</button>
+      <button class="new-chat" id="newChatBtn"><span>+</span>محادثة جديدة</button>
+      <nav class="nav-list" aria-label="أقسام ليا">
+        <button class="nav-item active" data-panel="chat"><span>●</span>المحادثة</button>
+        <button class="nav-item" data-panel="tasks"><span>◆</span>المهام</button>
+        <button class="nav-item" data-panel="money"><span>◈</span>الديون</button>
+        <button class="nav-item" data-panel="memory"><span>✦</span>الذاكرة</button>
+        <button class="nav-item" data-panel="identity"><span>◇</span>هوية ليا</button>
+      </nav>
+      <section class="side-card"><p class="side-label">حالة الاتصال</p><div class="health-row"><span class="pulse" id="healthPulse"></span><strong id="healthText">يتم الفحص...</strong></div><small id="healthModel">Gemini</small></section>
+      <section class="side-card profile-card"><p class="side-label">خاص بـ</p><h3>هشام</h3><p>مساعد شخصي للأعمال، المهام، الملاحظات، الأفكار، والقرارات اليومية.</p></section>
+      <footer class="sidebar-footer"><span>V1 Interface</span><span>Private Build</span></footer>
+    </aside>
+    <section class="workspace glass">
+      <header class="topbar">
+        <div class="topbar-title"><button class="menu-btn" id="openMenu" aria-label="فتح القائمة">☰</button><div><p class="eyebrow">مرحبًا هشام 👋</p><h1 id="panelTitle">محادثة مع ليا</h1></div></div>
+        <div class="top-actions"><button class="ghost-btn" id="clearBtn">مسح المحادثة</button><button class="primary-chip" id="focusChatBtn">ابدأ الآن</button></div>
       </header>
-
-      <section class="hero">
-        <p>مرحبًا هشام 👋</p>
-        <h2>كيف أساعدك اليوم؟</h2>
-        <div class="voice-orb" id="voiceOrb">
-          <span></span>
-          <b>LIA</b>
-        </div>
+      <section class="panel active" id="chatPanel">
+        <div class="chat-hero"><div class="hero-copy"><h2>عقلك الثاني لتنظيم يومك وأعمالك.</h2><p>اسأل ليا عن مهامك، ديونك، خططك، أفكارك، أو أي قرار تحتاج ترتيبه بوضوح.</p></div><div class="hero-logo"><div class="lia-mark large"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div></div></div>
+        <div class="quick-actions"><button data-prompt="ليا، رتبي لي أهم 5 مهام لهذا اليوم حسب الأولوية.">رتبي يومي</button><button data-prompt="ليا، ساعديني في تنظيم ديوني والتزاماتي بطريقة واضحة.">نظمي ديوني</button><button data-prompt="ليا، اكتبي لي خطة عمل مختصرة لمشروع أمد باي لهذا الأسبوع.">خطة أمد باي</button><button data-prompt="ليا، اسأليني أسئلة تساعدك تفهمين وضعي الحالي وتساعديني أفضل.">افهميني أكثر</button></div>
+        <section class="chat-card"><div class="messages" id="messages" aria-live="polite"><article class="message lia"><div class="avatar">L</div><div class="bubble"><span>ليا</span><p>أنا جاهزة يا هشام. اكتب ما تريد ترتيبه، وسأساعدك بذكاء وهدوء.</p></div></article></div><form class="composer" id="chatForm"><button type="button" class="mic-btn" id="voiceBtn" aria-label="زر صوتي تجريبي">◉</button><textarea id="messageInput" rows="1" placeholder="اكتب رسالتك إلى ليا..." autocomplete="off"></textarea><button type="submit" class="send-btn">إرسال</button></form></section>
       </section>
-
-      <section class="quick-grid">
-        <button data-prompt="ليا، رتبي مهامي لهذا اليوم.">مهامي</button>
-        <button data-prompt="ليا، سجلي ملاحظة جديدة.">ملاحظة</button>
-        <button data-prompt="ليا، ساعديني في تنظيم ديوني.">ديوني</button>
-        <button data-prompt="ليا، خططي لي يوم الغد.">تخطيط</button>
-      </section>
-
-      <section class="chat-card">
-        <div class="messages" id="messages">
-          <div class="message lia">
-            <span>ليا</span>
-            <p>أنا جاهزة يا هشام. اكتب ما تريد، وسأساعدك بذكاء وهدوء.</p>
-          </div>
-        </div>
-
-        <form id="chatForm" class="composer">
-          <input id="messageInput" type="text" placeholder="اكتب رسالتك إلى ليا..." autocomplete="off" />
-          <button type="submit">إرسال</button>
-        </form>
-      </section>
+      <section class="panel" id="tasksPanel"><div class="section-head"><h2>المهام</h2><p>اكتب مهامك سريعًا، وليا تساعدك لاحقًا في ترتيبها حسب الأولوية.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>إضافة مهمة</h3><div class="inline-form"><input id="taskInput" placeholder="مثال: مراجعة حسابات أمد باي قبل المغرب" /><button id="addTaskBtn">إضافة</button></div><ul class="smart-list" id="taskList"></ul></article><article class="tool-card"><span>مهام محفوظة</span><strong id="tasksCount">0</strong><p>محفوظة مؤقتًا في المتصفح.</p></article><article class="tool-card"><span>اقتراح ذكي</span><p>بعد إدخال مهامك، اطلب من ليا: “رتبي مهامي حسب الأهم”.</p></article></div></section>
+      <section class="panel" id="moneyPanel"><div class="section-head"><h2>الديون والالتزامات</h2><p>مساحة أولية لتسجيل الالتزامات. لاحقًا نربطها بذاكرة دائمة.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>إضافة التزام</h3><div class="inline-form"><input id="debtInput" placeholder="مثال: فلان — 50,000 ريال — نهاية الأسبوع" /><button id="addDebtBtn">إضافة</button></div><ul class="smart-list" id="debtList"></ul></article><article class="tool-card"><span>التزامات محفوظة</span><strong id="debtsCount">0</strong><p>قابلة للتطوير لاحقًا لتقارير وتنبيهات.</p></article></div></section>
+      <section class="panel" id="memoryPanel"><div class="section-head"><h2>ذاكرة ليا</h2><p>اكتب الأشياء التي تريد من ليا تذكرها. هذه النسخة تحفظ مؤقتًا داخل المتصفح.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>ملاحظة للذاكرة</h3><textarea id="memoryInput" class="note-area" placeholder="مثال: تذكري أن تركيزنا الآن على واجهة ليا ثم تحويلها لتطبيق Android."></textarea><button class="solid-btn" id="addMemoryBtn">حفظ الملاحظة</button><ul class="smart-list" id="memoryList"></ul></article><article class="tool-card"><span>ملاحظات محفوظة</span><strong id="memoryCount">0</strong><p>لاحقًا سننقلها إلى Firebase.</p></article></div></section>
+      <section class="panel" id="identityPanel"><div class="identity-layout"><div class="identity-main"><div class="lia-mark xlarge"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div><h2>LIA AI</h2><p>مساعد شخصي فاخر، هادئ، ذكي، عملي، وقريب من هشام.</p></div><div class="identity-cards"><article><span>الشخصية</span><p>Jarvis عملي + حضور إنساني راقٍ وهادئ.</p></article><article><span>الألوان</span><div class="palette"><i style="--c:#070A18"></i><i style="--c:#101735"></i><i style="--c:#7C3AED"></i><i style="--c:#C084FC"></i><i style="--c:#67E8F9"></i></div></article><article><span>الرسالة</span><p>تنظيم أفكار هشام وأعماله وقراراته اليومية بوضوح وهدوء.</p></article></div></div></section>
     </section>
-
-    <section class="dashboard glass">
-      <h3>مركز ليا الشخصي</h3>
-
-      <div class="stat-card">
-        <span>المهام</span>
-        <strong>12</strong>
-        <small>مهام قابلة للتنظيم</small>
-      </div>
-
-      <div class="stat-card">
-        <span>الديون</span>
-        <strong>3</strong>
-        <small>التزامات للمتابعة</small>
-      </div>
-
-      <div class="stat-card">
-        <span>الملاحظات</span>
-        <strong>8</strong>
-        <small>أفكار محفوظة لاحقًا</small>
-      </div>
-
-      <div class="feature-list">
-        <p>✓ محادثة مع Gemini</p>
-        <p>✓ واجهة خاصة لهشام</p>
-        <p>✓ جاهزة للذاكرة لاحقًا</p>
-        <p>✓ قابلة للتحويل إلى تطبيق Android</p>
-      </div>
-    </section>
+    <aside class="insights glass"><div class="insight-header"><span>Today</span><strong>مركز ليا</strong></div><article class="metric-card"><span>المهام</span><strong id="tasksCountSide">0</strong><p>قيد التنظيم</p></article><article class="metric-card"><span>الديون</span><strong id="debtsCountSide">0</strong><p>للمتابعة</p></article><article class="metric-card"><span>الذاكرة</span><strong id="memoryCountSide">0</strong><p>ملاحظات محفوظة</p></article><article class="quote-card"><p>“ليا ليست مجرد محادثة، بل مساحة تفكير منظمة لهشام.”</p></article></aside>
   </main>
-
+  <div class="overlay" id="overlay"></div>
   <script src="./app.js"></script>
 </body>
 </html>
