@@ -1,6 +1,6 @@
 {
-  "name": "lia-ai-vercel-ready-inline-fix",
-  "version": "4.2.0",
+  "name": "lia-v5-mobile-voice-pro",
+  "version": "5.0.0",
   "type": "module",
   "scripts": {
     "start": "node server.js",
