@@ -1,32 +1,35 @@
-# LIA Pro V3.1 Final PWA
+# LIA Full V4 - Vercel Ready
 
-تحديث نهائي:
-- شعار جديد احترافي بصيغة SVG + أيقونات PNG.
-- دعم PWA للتجربة كتطبيق على الهاتف.
-- تسجيل دخول من السيرفر وليس Local فقط.
-- تحسين الصوت: يبحث عن أي صوت عربي تلقائيًا، مع تنبيه إذا المتصفح لا يوفر صوت عربي.
-- لغة التعرف الصوتي قابلة للاختيار: ar-YE / ar-SA / ar / en-US.
-- إصلاح شكل الشعار داخل الواجهة.
-- تبقى البيانات المحلية في المتصفح.
+هذه حزمة كاملة جاهزة لـ Vercel وتمنع الرجوع للتصميم القديم.
 
-استبدل الملفات التالية:
-- server.js
-- package.json
-- app/index.html
-- app/style.css
-- app/app.js
-- app/manifest.json
-- app/sw.js
-- app/assets/*
+## طريقة الرفع
+1. فك ضغط الملف.
+2. ارفع كل محتويات المجلد إلى جذر مشروع GitHub، وليس داخل مجلد فرعي.
+3. وافق على Replace/Overwrite لكل الملفات.
+4. Commit changes.
+5. انتظر Vercel حتى ينشر.
 
-ثم Commit إلى GitHub وبعدها Redeploy في Vercel.
+## اختبار التحديث
+افتح:
+/api/auth-check
 
-بيانات الدخول:
-- username: hesham1amd
-- password: 1236542080
+المفروض يظهر JSON مثل:
+{"loggedIn":false}
 
-الأفضل لاحقًا في Vercel إضافة:
-- LIA_USER
-- LIA_PASS
-- LIA_SESSION_SECRET
-حتى لا تبقى بيانات الدخول داخل الكود.
+وافتح:
+/assets/lia-icon.svg
+
+المفروض يظهر الشعار الجديد، وليس صفحة HTML.
+
+## بيانات الدخول
+username: hesham1amd
+password: 1236542080
+
+## متغيرات Vercel المطلوبة
+GEMINI_API_KEY
+GEMINI_MODEL=gemini-2.5-flash
+
+اختياريًا:
+LIA_USER
+LIA_PASS
+LIA_SESSION_SECRET

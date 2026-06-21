@@ -1,0 +1,1 @@
+import{getGeminiKeyInfo,getGeminiModels}from"./_lib.js";export default function handler(req,res){const k=getGeminiKeyInfo();res.json({name:"LIA",version:"4.0",status:"online",brain:"Gemini",owner:"Hesham",hasGeminiKey:Boolean(k.key),geminiKeySource:k.source,geminiKeyLength:k.length,model:process.env.GEMINI_MODEL||"gemini-2.5-flash",fallbackModels:getGeminiModels()})}

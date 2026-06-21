@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "rewrites": [
+    {"source":"/chat","destination":"/api/chat"},
+    {"source":"/login","destination":"/api/login"},
+    {"source":"/logout","destination":"/api/logout"},
+    {"source":"/auth-check","destination":"/api/auth-check"},
+    {"source":"/health","destination":"/api/health"},
+    {"source":"/env-check","destination":"/api/env-check"}
+  ]
+}
