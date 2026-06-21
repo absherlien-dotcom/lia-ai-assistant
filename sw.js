@@ -1,1 +1,13 @@
-const CACHE_NAME="lia-v4-cache";const ASSETS=["/","/style.css?v=4","/app.js?v=4","/manifest.json","/assets/lia-icon.svg","/assets/lia-icon-192.png","/assets/lia-icon-512.png"];self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(ASSETS)));self.skipWaiting()});self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))));self.clients.claim()});self.addEventListener("fetch",e=>{const u=new URL(e.request.url);if(e.request.method!=="GET")return;if(u.pathname.startsWith("/api/")||u.pathname==="/chat"||u.pathname==="/login"||u.pathname==="/logout")return;e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request)))})
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
+      .then(() => self.registration.unregister())
+      .then(() => self.clients.matchAll())
+      .then((clients) => clients.forEach((client) => client.navigate(client.url)))
+  );
+});

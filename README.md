@@ -1,59 +1,46 @@
-# LIA Full V4.1 - Vercel Ready - One API Function
+# LIA Full V4.2 - Inline Fix
 
-هذه نسخة مخصصة لحل خطأ Vercel:
+هذه نسخة علاجية لحل مشكلة ظهور الصفحة بدون تصميم.
 
-> لا يمكن إضافة أكثر من 12 وظيفة بدون خادم
+## ما الذي تغير؟
 
-تم دمج كل الـ API في ملف واحد فقط:
+- تم وضع CSS داخل index.html مباشرة.
+- تم وضع JavaScript داخل index.html مباشرة.
+- تم تضمين الشعار داخل الصفحة مباشرة بصيغة Data URI.
+- تم تعديل sw.js حتى يمسح الكاش القديم ويلغي Service Worker بدل تخزين نسخة قديمة.
+- بقي api/index.js فقط لتجنب خطأ Vercel الخاص بأكثر من 12 وظيفة.
 
-api/index.js
-
-## مهم جدًا قبل الرفع
-
-احذف مجلد api القديم بالكامل من GitHub، ثم ارفع مجلد api الجديد الذي يحتوي على ملف واحد فقط:
-
-api/index.js
-
-لا تترك الملفات القديمة مثل:
-
-api/debts.js
-api/firebase.js
-api/gemini.js
-api/memory.js
-api/reminders.js
-api/server.js
-api/tasks.js
-api/login.js
-api/chat.js
-api/health.js
-
-لأن كل ملف يحسبه Vercel كوظيفة مستقلة.
-
-## طريقة الرفع الصحيحة
+## طريقة الرفع
 
 1. فك الضغط.
-2. افتح GitHub.
-3. احذف مجلد api القديم كامل.
-4. ارفع محتويات هذه الحزمة إلى جذر المشروع.
-5. وافق على الاستبدال.
-6. Commit changes.
-7. انتظر Vercel.
+2. في GitHub ارفع محتويات المجلد إلى جذر المشروع.
+3. وافق على الاستبدال.
+4. تأكد أن مجلد api يحتوي index.js فقط.
+5. Commit changes.
+6. انتظر Vercel.
 
-## اختبار بعد النشر
+## بعد النشر
 
 افتح:
 
 /api/auth-check
 
-المفروض يظهر:
+يجب أن يظهر:
 
 {"loggedIn":false}
 
-ثم:
+ثم افتح:
 
-/assets/lia-icon.svg
+/?v=42
 
-المفروض يظهر الشعار الجديد.
+إذا بقي الشكل بدون تصميم:
+- F12
+- Application
+- Storage
+- Clear site data
+- Service Workers
+- Unregister
+- Ctrl + F5
 
 ## بيانات الدخول
 
@@ -62,8 +49,3 @@ hesham1amd
 
 password:
 1236542080
-
-## متغيرات Vercel
-
-GEMINI_API_KEY
-GEMINI_MODEL=gemini-2.5-flash
