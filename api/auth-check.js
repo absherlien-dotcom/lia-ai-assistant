@@ -1,1 +1,0 @@
-import{isLoggedIn}from"./_lib.js";export default function handler(req,res){res.json({loggedIn:isLoggedIn(req)})}

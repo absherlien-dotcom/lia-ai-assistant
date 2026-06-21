@@ -1,1 +1,0 @@
-import{LIA_USER,LIA_PASS,setSessionCookie}from"./_lib.js";export default function handler(req,res){if(req.method!=="POST")return res.status(405).json({error:"METHOD_NOT_ALLOWED"});const{username,password}=req.body||{};if(username===LIA_USER&&password===LIA_PASS){setSessionCookie(res);return res.json({ok:true})}return res.status(401).json({ok:false,error:"LOGIN_FAILED"})}
