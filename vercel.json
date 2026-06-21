@@ -1,11 +1,53 @@
 {
   "version": 2,
   "rewrites": [
-    {"source":"/chat","destination":"/api/chat"},
-    {"source":"/login","destination":"/api/login"},
-    {"source":"/logout","destination":"/api/logout"},
-    {"source":"/auth-check","destination":"/api/auth-check"},
-    {"source":"/health","destination":"/api/health"},
-    {"source":"/env-check","destination":"/api/env-check"}
+    {
+      "source": "/api/login",
+      "destination": "/api/index?route=login"
+    },
+    {
+      "source": "/api/logout",
+      "destination": "/api/index?route=logout"
+    },
+    {
+      "source": "/api/auth-check",
+      "destination": "/api/index?route=auth-check"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/index?route=health"
+    },
+    {
+      "source": "/api/env-check",
+      "destination": "/api/index?route=env-check"
+    },
+    {
+      "source": "/api/chat",
+      "destination": "/api/index?route=chat"
+    },
+    {
+      "source": "/login",
+      "destination": "/api/index?route=login"
+    },
+    {
+      "source": "/logout",
+      "destination": "/api/index?route=logout"
+    },
+    {
+      "source": "/auth-check",
+      "destination": "/api/index?route=auth-check"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/index?route=health"
+    },
+    {
+      "source": "/env-check",
+      "destination": "/api/index?route=env-check"
+    },
+    {
+      "source": "/chat",
+      "destination": "/api/index?route=chat"
+    }
   ]
 }

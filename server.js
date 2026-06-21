@@ -1,1 +1,39 @@
-import express from"express";import path from"path";import{fileURLToPath}from"url";import login from"./api/login.js";import logout from"./api/logout.js";import authCheck from"./api/auth-check.js";import health from"./api/health.js";import envCheck from"./api/env-check.js";import chat from"./api/chat.js";const app=express();const __filename=fileURLToPath(import.meta.url);const __dirname=path.dirname(__filename);app.use(express.json({limit:"2mb"}));app.use(express.static(__dirname));const wrap=h=>(req,res)=>h(req,res);app.post("/api/login",wrap(login));app.post("/api/logout",wrap(logout));app.get("/api/auth-check",wrap(authCheck));app.get("/api/health",wrap(health));app.get("/api/env-check",wrap(envCheck));app.post("/api/chat",wrap(chat));app.post("/login",wrap(login));app.post("/logout",wrap(logout));app.get("/auth-check",wrap(authCheck));app.get("/health",wrap(health));app.get("/env-check",wrap(envCheck));app.post("/chat",wrap(chat));app.get("*",(req,res)=>res.sendFile(path.join(__dirname,"index.html")));const PORT=process.env.PORT||3000;app.listen(PORT,()=>console.log(`LIA V4 running on port ${PORT}`));
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import apiHandler from "./api/index.js";
+
+const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.json({ limit: "2mb" }));
+app.use(express.static(__dirname));
+
+function wrap(route) {
+  return (req, res) => {
+    req.url = `/api/index?route=${route}`;
+    return apiHandler(req, res);
+  };
+}
+
+app.post("/api/login", wrap("login"));
+app.post("/api/logout", wrap("logout"));
+app.get("/api/auth-check", wrap("auth-check"));
+app.get("/api/health", wrap("health"));
+app.get("/api/env-check", wrap("env-check"));
+app.post("/api/chat", wrap("chat"));
+
+app.post("/login", wrap("login"));
+app.post("/logout", wrap("logout"));
+app.get("/auth-check", wrap("auth-check"));
+app.get("/health", wrap("health"));
+app.get("/env-check", wrap("env-check"));
+app.post("/chat", wrap("chat"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`LIA V4.1 running on port ${PORT}`));

@@ -1,7 +1,12 @@
 {
-  "name":"lia-ai-vercel-ready",
-  "version":"4.0.0",
-  "type":"module",
-  "scripts":{"start":"node server.js","dev":"node server.js"},
-  "dependencies":{"express":"^4.21.2"}
+  "name": "lia-ai-vercel-ready-one-api",
+  "version": "4.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
