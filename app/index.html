@@ -3,53 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LIA AI — مساعد هشام الشخصي</title>
-  <meta name="theme-color" content="#070A18" />
-  <meta name="description" content="LIA AI — Personal Intelligence for Hesham" />
+  <title>LIA — مساعد هشام الشخصي</title>
+  <meta name="theme-color" content="#050710" />
+  <meta name="description" content="LIA — Personal Intelligence for Hesham" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div class="lia-bg"><div class="glow glow-a"></div><div class="glow glow-b"></div><div class="glow glow-c"></div><div class="grid-layer"></div></div>
-  <main class="lia-shell">
-    <aside class="sidebar glass">
-      <div class="brand-row">
-        <button class="mobile-menu" id="closeMenu" aria-label="إغلاق القائمة">×</button>
-        <div class="lia-mark small" aria-label="LIA Logo"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div>
-        <div class="brand-text"><strong>LIA AI</strong><small>Personal Intelligence</small></div>
-      </div>
-      <button class="new-chat" id="newChatBtn"><span>+</span>محادثة جديدة</button>
-      <nav class="nav-list" aria-label="أقسام ليا">
-        <button class="nav-item active" data-panel="chat"><span>●</span>المحادثة</button>
-        <button class="nav-item" data-panel="tasks"><span>◆</span>المهام</button>
-        <button class="nav-item" data-panel="money"><span>◈</span>الديون</button>
-        <button class="nav-item" data-panel="memory"><span>✦</span>الذاكرة</button>
-        <button class="nav-item" data-panel="identity"><span>◇</span>هوية ليا</button>
+  <section class="login-screen" id="loginScreen">
+    <div class="login-bg"><div class="orb login-orb"><span></span><i></i><b></b></div></div>
+    <div class="login-card glass">
+      <div class="logo-word">LIA</div>
+      <h1>دخول هشام</h1>
+      <p>تسجيل دخول مرة واحدة لهذا الجهاز. بياناتك المحلية محفوظة في متصفحك فقط.</p>
+      <form id="loginForm" class="login-form">
+        <input id="loginUser" placeholder="اسم الدخول" autocomplete="username" />
+        <input id="loginPass" type="password" placeholder="كلمة المرور" autocomplete="current-password" />
+        <button type="submit">دخول إلى ليا</button>
+        <small id="loginError"></small>
+      </form>
+    </div>
+  </section>
+
+  <div class="app-bg">
+    <div class="bg-glow one"></div><div class="bg-glow two"></div><div class="bg-glow three"></div><div class="matrix-grid"></div>
+  </div>
+
+  <main class="app-shell" id="appShell">
+    <aside class="rail glass">
+      <div class="rail-brand"><div class="mini-logo">L</div><strong>ليا</strong></div>
+      <nav class="rail-tabs">
+        <button class="tab-btn active" data-panel="chat" title="المحادثة">✦<span>محادثة</span></button>
+        <button class="tab-btn" data-panel="voice" title="الصوت">◉<span>صوت</span></button>
+        <button class="tab-btn" data-panel="tasks" title="المهام">▣<span>مهام</span></button>
+        <button class="tab-btn" data-panel="finance" title="الديون والمال">◈<span>مال</span></button>
+        <button class="tab-btn" data-panel="memory" title="الذاكرة">◇<span>ذاكرة</span></button>
+        <button class="tab-btn" data-panel="settings" title="الإعدادات">⚙<span>إعدادات</span></button>
       </nav>
-      <section class="side-card"><p class="side-label">حالة الاتصال</p><div class="health-row"><span class="pulse" id="healthPulse"></span><strong id="healthText">يتم الفحص...</strong></div><small id="healthModel">Gemini</small></section>
-      <section class="side-card profile-card"><p class="side-label">خاص بـ</p><h3>هشام</h3><p>مساعد شخصي للأعمال، المهام، الملاحظات، الأفكار، والقرارات اليومية.</p></section>
-      <footer class="sidebar-footer"><span>V1 Interface</span><span>Private Build</span></footer>
+      <button class="logout" id="logoutBtn" title="خروج">↩</button>
     </aside>
-    <section class="workspace glass">
+
+    <section class="main-space glass">
       <header class="topbar">
-        <div class="topbar-title"><button class="menu-btn" id="openMenu" aria-label="فتح القائمة">☰</button><div><p class="eyebrow">مرحبًا هشام 👋</p><h1 id="panelTitle">محادثة مع ليا</h1></div></div>
-        <div class="top-actions"><button class="ghost-btn" id="clearBtn">مسح المحادثة</button><button class="primary-chip" id="focusChatBtn">ابدأ الآن</button></div>
+        <div><p class="kicker">مرحبًا هشام 👋</p><h1 id="panelTitle">كيف أساعدك اليوم؟</h1></div>
+        <div class="status-pill" id="healthBadge"><span></span><b>فحص الاتصال...</b></div>
       </header>
+
       <section class="panel active" id="chatPanel">
-        <div class="chat-hero"><div class="hero-copy"><h2>عقلك الثاني لتنظيم يومك وأعمالك.</h2><p>اسأل ليا عن مهامك، ديونك، خططك، أفكارك، أو أي قرار تحتاج ترتيبه بوضوح.</p></div><div class="hero-logo"><div class="lia-mark large"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div></div></div>
-        <div class="quick-actions"><button data-prompt="ليا، رتبي لي أهم 5 مهام لهذا اليوم حسب الأولوية.">رتبي يومي</button><button data-prompt="ليا، ساعديني في تنظيم ديوني والتزاماتي بطريقة واضحة.">نظمي ديوني</button><button data-prompt="ليا، اكتبي لي خطة عمل مختصرة لمشروع أمد باي لهذا الأسبوع.">خطة أمد باي</button><button data-prompt="ليا، اسأليني أسئلة تساعدك تفهمين وضعي الحالي وتساعديني أفضل.">افهميني أكثر</button></div>
-        <section class="chat-card"><div class="messages" id="messages" aria-live="polite"><article class="message lia"><div class="avatar">L</div><div class="bubble"><span>ليا</span><p>أنا جاهزة يا هشام. اكتب ما تريد ترتيبه، وسأساعدك بذكاء وهدوء.</p></div></article></div><form class="composer" id="chatForm"><button type="button" class="mic-btn" id="voiceBtn" aria-label="زر صوتي تجريبي">◉</button><textarea id="messageInput" rows="1" placeholder="اكتب رسالتك إلى ليا..." autocomplete="off"></textarea><button type="submit" class="send-btn">إرسال</button></form></section>
+        <div class="hero-zone">
+          <div class="orb-wrap"><div class="orb" id="mainOrb"><span></span><i></i><b></b></div></div>
+          <div class="hero-text">
+            <h2>اسأل ليا أي شيء.</h2>
+            <p>قل لها مهمة، دين، مصروف، ملاحظة أو فكرة. ستفهم وتضيفها تلقائيًا في مكانها.</p>
+          </div>
+        </div>
+        <div class="smart-tabs">
+          <button data-prompt="ليا، اليوم عندي مهمة الساعة 6 مساء أتابع موضوع مهم. احفظيها وذكّريني.">مهمة بوقت</button>
+          <button data-prompt="ليا، سحبت دين من البقالة 3000 يمني.">دين بقالة</button>
+          <button data-prompt="ليا، ساعديني أخفف مصاريفي هذا الشهر.">خفض المصروف</button>
+          <button data-prompt="ليا، اسأليني أسئلة تفهمين بها وضعي الحالي.">افهميني</button>
+        </div>
+        <section class="chat-window glass-inner">
+          <div class="messages" id="messages">
+            <article class="message lia"><div class="avatar">L</div><div class="bubble"><span>ليا</span><p>أنا جاهزة يا هشام. تكلم معي طبيعي، وأنا سأرتب لك المهام والديون والملاحظات تلقائيًا.</p></div></article>
+          </div>
+          <form class="composer glass-input" id="chatForm">
+            <button type="button" class="tool-btn" id="attachBtn">+</button>
+            <textarea id="messageInput" rows="1" placeholder="اكتب أو اضغط صوت وتكلم مع ليا..."></textarea>
+            <button type="button" class="voice-btn" id="voiceBtn"><span></span>صوت</button>
+            <button type="submit" class="send-btn">➤</button>
+          </form>
+        </section>
       </section>
-      <section class="panel" id="tasksPanel"><div class="section-head"><h2>المهام</h2><p>اكتب مهامك سريعًا، وليا تساعدك لاحقًا في ترتيبها حسب الأولوية.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>إضافة مهمة</h3><div class="inline-form"><input id="taskInput" placeholder="مثال: مراجعة حسابات أمد باي قبل المغرب" /><button id="addTaskBtn">إضافة</button></div><ul class="smart-list" id="taskList"></ul></article><article class="tool-card"><span>مهام محفوظة</span><strong id="tasksCount">0</strong><p>محفوظة مؤقتًا في المتصفح.</p></article><article class="tool-card"><span>اقتراح ذكي</span><p>بعد إدخال مهامك، اطلب من ليا: “رتبي مهامي حسب الأهم”.</p></article></div></section>
-      <section class="panel" id="moneyPanel"><div class="section-head"><h2>الديون والالتزامات</h2><p>مساحة أولية لتسجيل الالتزامات. لاحقًا نربطها بذاكرة دائمة.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>إضافة التزام</h3><div class="inline-form"><input id="debtInput" placeholder="مثال: فلان — 50,000 ريال — نهاية الأسبوع" /><button id="addDebtBtn">إضافة</button></div><ul class="smart-list" id="debtList"></ul></article><article class="tool-card"><span>التزامات محفوظة</span><strong id="debtsCount">0</strong><p>قابلة للتطوير لاحقًا لتقارير وتنبيهات.</p></article></div></section>
-      <section class="panel" id="memoryPanel"><div class="section-head"><h2>ذاكرة ليا</h2><p>اكتب الأشياء التي تريد من ليا تذكرها. هذه النسخة تحفظ مؤقتًا داخل المتصفح.</p></div><div class="tool-grid"><article class="tool-card wide"><h3>ملاحظة للذاكرة</h3><textarea id="memoryInput" class="note-area" placeholder="مثال: تذكري أن تركيزنا الآن على واجهة ليا ثم تحويلها لتطبيق Android."></textarea><button class="solid-btn" id="addMemoryBtn">حفظ الملاحظة</button><ul class="smart-list" id="memoryList"></ul></article><article class="tool-card"><span>ملاحظات محفوظة</span><strong id="memoryCount">0</strong><p>لاحقًا سننقلها إلى Firebase.</p></article></div></section>
-      <section class="panel" id="identityPanel"><div class="identity-layout"><div class="identity-main"><div class="lia-mark xlarge"><span class="mark-core">L</span><span class="mark-ring ring-one"></span><span class="mark-ring ring-two"></span><i class="mark-spark spark-one"></i><i class="mark-spark spark-two"></i></div><h2>LIA AI</h2><p>مساعد شخصي فاخر، هادئ، ذكي، عملي، وقريب من هشام.</p></div><div class="identity-cards"><article><span>الشخصية</span><p>Jarvis عملي + حضور إنساني راقٍ وهادئ.</p></article><article><span>الألوان</span><div class="palette"><i style="--c:#070A18"></i><i style="--c:#101735"></i><i style="--c:#7C3AED"></i><i style="--c:#C084FC"></i><i style="--c:#67E8F9"></i></div></article><article><span>الرسالة</span><p>تنظيم أفكار هشام وأعماله وقراراته اليومية بوضوح وهدوء.</p></article></div></div></section>
+
+      <section class="panel" id="voicePanel">
+        <div class="voice-stage">
+          <div class="orb huge" id="voiceOrb"><span></span><i></i><b></b></div>
+          <h2>محادثة صوتية مع ليا</h2>
+          <p id="voiceStatus">اضغط الزر وقل: “ليا عندي مهمة الساعة 6” أو “سحبت دين من البقالة 3000”.</p>
+          <button class="big-voice" id="startVoiceBtn">ابدأ الاستماع</button>
+          <button class="ghost" id="speakLastBtn">اقرأ آخر رد بصوت</button>
+        </div>
+      </section>
+
+      <section class="panel" id="tasksPanel">
+        <div class="panel-head"><h2>المهام التي فهمتها ليا</h2><p>تُضاف تلقائيًا من المحادثة والصوت.</p></div>
+        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>قائمة المهام</strong><button id="clearTasksBtn">مسح المهام</button></div><div class="list" id="tasksList"></div></div><div class="data-card"><span>إجمالي المهام</span><b id="taskCount">0</b><p>مهمة محفوظة محليًا</p></div></div>
+      </section>
+
+      <section class="panel" id="financePanel">
+        <div class="panel-head"><h2>الديون والمصاريف</h2><p>مدين، دائن، بقالة، مصاريف يومية، التزامات شهرية، وتحليل صرف تقريبي.</p></div>
+        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>الحركات المالية</strong><button id="clearFinanceBtn">مسح الماليات</button></div><div class="list" id="financeList"></div></div><div class="data-card"><span>إجمالي مسجل</span><b id="financeTotal">0</b><p>ريال يمني تقريبًا</p></div><div class="data-card"><span>تحليل ليا</span><p id="financeInsight">أخبر ليا بمصاريفك أو ديونك لتبدأ التحليل.</p></div></div>
+      </section>
+
+      <section class="panel" id="memoryPanel">
+        <div class="panel-head"><h2>ذاكرة محلية</h2><p>كل شيء هنا محفوظ على جهازك فقط عبر المتصفح.</p></div>
+        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>الملاحظات والقرارات</strong><button id="clearMemoryBtn">مسح الذاكرة</button></div><div class="list" id="memoryList"></div></div><div class="data-card"><span>حجم الذاكرة</span><b id="memoryCount">0</b><p>عنصر محفوظ</p></div></div>
+      </section>
+
+      <section class="panel" id="settingsPanel">
+        <div class="panel-head"><h2>إعدادات ليا</h2><p>تحكم في اللهجة والصوت والخصوصية المحلية.</p></div>
+        <div class="settings-grid">
+          <label class="setting-card"><span>لهجة الرد</span><select id="toneSelect"><option value="yemeni-formal">يمني رسمي ناعم</option><option value="fusha">فصحى راقية</option><option value="short-business">مختصر إداري</option><option value="friendly">ودود قريب</option></select></label>
+          <label class="setting-card"><span>الصوت</span><select id="voiceSelect"></select></label>
+          <div class="setting-card"><span>الخصوصية</span><p>المهام والديون والذاكرة محفوظة محليًا في هذا المتصفح. الردود الذكية تمر عبر Gemini API.</p></div>
+          <button class="danger" id="wipeAllBtn">مسح كل بيانات ليا من هذا الجهاز</button>
+        </div>
+      </section>
     </section>
-    <aside class="insights glass"><div class="insight-header"><span>Today</span><strong>مركز ليا</strong></div><article class="metric-card"><span>المهام</span><strong id="tasksCountSide">0</strong><p>قيد التنظيم</p></article><article class="metric-card"><span>الديون</span><strong id="debtsCountSide">0</strong><p>للمتابعة</p></article><article class="metric-card"><span>الذاكرة</span><strong id="memoryCountSide">0</strong><p>ملاحظات محفوظة</p></article><article class="quote-card"><p>“ليا ليست مجرد محادثة، بل مساحة تفكير منظمة لهشام.”</p></article></aside>
+
+    <aside class="insights glass">
+      <div class="brand-large"><div class="symbol-logo"><span>ليا</span></div><h2>LIA</h2><p>عقلك الثاني الهادئ.</p></div>
+      <div class="metric"><span>المهام</span><b id="sideTasks">0</b></div>
+      <div class="metric"><span>الماليات</span><b id="sideFinance">0</b></div>
+      <div class="metric"><span>الذاكرة</span><b id="sideMemory">0</b></div>
+      <div class="hint-card"><strong>أمثلة ذكية</strong><p>“ليا احفظي مهمة الساعة 6”</p><p>“سحبت دين من البقالة 3000”</p><p>“ذكريني أتابع فلان بكرة”</p></div>
+    </aside>
   </main>
-  <div class="overlay" id="overlay"></div>
   <script src="./app.js"></script>
 </body>
 </html>
