@@ -1,10 +1,18 @@
 import express from "express";
 import path from "path";
+import crypto from "crypto";
 import { fileURLToPath } from "url";
 
 const app = express();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const LIA_USER = process.env.LIA_USER || "hesham1amd";
+const LIA_PASS = process.env.LIA_PASS || "1236542080";
+const LIA_SECRET =
+  process.env.LIA_SESSION_SECRET ||
+  crypto.createHash("sha256").update(`${LIA_USER}:${LIA_PASS}:lia-private-v3`).digest("hex");
 
 app.use(express.json({ limit: "2mb" }));
 app.use(express.static(path.join(__dirname, "app")));
@@ -21,7 +29,7 @@ const LIA_PERSONALITY = `
 - مساعدته في أعماله وقراراته ومهامه وديونه وملاحظاته.
 - التفكير معه كمدير ورجل أعمال.
 - استخراج المعنى من كلامه: مهمة، دين، مصروف، ملاحظة، قرار، تنبيه.
-- إذا قال هشام شيئًا مثل: "عندي مهمة الساعة 6" فاكدي له أنه يجب حفظها في المهام.
+- إذا قال هشام شيئًا مثل: "عندي مهمة الساعة 6" فأكدي له أنه تم حفظها في المهام.
 - إذا قال: "سحبت دين من البقالة 3000" فحللي له أثر المصروف بلطف.
 - لا تخترعي معلومات غير موجودة.
 - لا تطلبي بيانات حساسة بلا ضرورة.
@@ -29,12 +37,55 @@ const LIA_PERSONALITY = `
 - نادِ المستخدم باسم هشام عندما يكون مناسبًا.
 `;
 
+function parseCookies(cookieHeader = "") {
+  return Object.fromEntries(
+    cookieHeader
+      .split(";")
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .map((part) => {
+        const index = part.indexOf("=");
+        if (index === -1) return [part, ""];
+        return [part.slice(0, index), decodeURIComponent(part.slice(index + 1))];
+      })
+  );
+}
+
+function makeToken() {
+  return crypto.createHash("sha256").update(`${LIA_USER}:${LIA_PASS}:${LIA_SECRET}`).digest("hex");
+}
+
+function isLoggedIn(req) {
+  const cookies = parseCookies(req.headers.cookie || "");
+  return cookies.lia_session === makeToken();
+}
+
+function requireAuth(req, res, next) {
+  if (!isLoggedIn(req)) {
+    return res.status(401).json({
+      error: "UNAUTHORIZED",
+      reply: "يا هشام، تحتاج تسجيل الدخول أولًا."
+    });
+  }
+  next();
+}
+
 function safeJsonParse(text) {
-  try { return JSON.parse(text); } catch { return { raw: text }; }
+  try {
+    return JSON.parse(text);
+  } catch {
+    return { raw: text };
+  }
 }
 
 function getGeminiErrorMessage(data, status) {
-  return data?.error?.message || data?.error?.status || data?.message || data?.raw || `Gemini returned HTTP ${status}`;
+  return (
+    data?.error?.message ||
+    data?.error?.status ||
+    data?.message ||
+    data?.raw ||
+    `Gemini returned HTTP ${status}`
+  );
 }
 
 function getGeminiKeyInfo() {
@@ -49,18 +100,34 @@ function getGeminiKeyInfo() {
 
   for (const name of possibleNames) {
     const value = process.env[name];
+
     if (typeof value === "string" && value.trim().length > 0) {
-      return { key: value.trim(), source: name, length: value.trim().length };
+      return {
+        key: value.trim(),
+        source: name,
+        length: value.trim().length
+      };
     }
   }
-  return { key: "", source: null, length: 0 };
+
+  return {
+    key: "",
+    source: null,
+    length: 0
+  };
 }
 
 function getSafeEnvReport() {
   return Object.keys(process.env)
     .filter((key) => {
       const upper = key.toUpperCase();
-      return upper.includes("GEMINI") || upper.includes("GOOGLE") || upper.includes("API") || upper.includes("KEY");
+      return (
+        upper.includes("GEMINI") ||
+        upper.includes("GOOGLE") ||
+        upper.includes("API") ||
+        upper.includes("KEY") ||
+        upper.includes("LIA")
+      );
     })
     .sort();
 }
@@ -71,7 +138,11 @@ function getGeminiModels() {
     "gemini-2.5-flash",
     "gemini-flash-latest",
     "gemini-2.5-flash-lite"
-  ].filter(Boolean).map((m) => m.trim()).filter(Boolean);
+  ]
+    .filter(Boolean)
+    .map((model) => model.trim())
+    .filter(Boolean);
+
   return [...new Set(models)];
 }
 
@@ -80,15 +151,27 @@ async function callGemini({ apiKey, prompt }) {
   const attempts = [];
 
   for (const model of models) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+    const url =
+      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     try {
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.72, topP: 0.9, maxOutputTokens: 1100 }
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.72,
+            topP: 0.9,
+            maxOutputTokens: 1100
+          }
         })
       });
 
@@ -96,25 +179,68 @@ async function callGemini({ apiKey, prompt }) {
       const data = safeJsonParse(text);
 
       if (!response.ok) {
-        attempts.push({ model, status: response.status, error: getGeminiErrorMessage(data, response.status) });
+        attempts.push({
+          model,
+          status: response.status,
+          error: getGeminiErrorMessage(data, response.status)
+        });
         continue;
       }
 
-      const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "يا هشام، وصلني الطلب لكن لم أستطع استخراج رد واضح من Gemini.";
-      return { ok: true, model, reply };
+      const reply =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "يا هشام، وصلني الطلب لكن لم أستطع استخراج رد واضح من Gemini.";
+
+      return {
+        ok: true,
+        model,
+        reply
+      };
     } catch (error) {
-      attempts.push({ model, status: "FETCH_FAILED", error: error.message });
+      attempts.push({
+        model,
+        status: "FETCH_FAILED",
+        error: error.message
+      });
     }
   }
 
-  return { ok: false, attempts };
+  return {
+    ok: false,
+    attempts
+  };
 }
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body || {};
+
+  if (username === LIA_USER && password === LIA_PASS) {
+    const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
+    res.setHeader(
+      "Set-Cookie",
+      `lia_session=${makeToken()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=31536000${secure}`
+    );
+    return res.json({ ok: true });
+  }
+
+  res.status(401).json({ ok: false, error: "LOGIN_FAILED" });
+});
+
+app.post("/logout", (req, res) => {
+  res.setHeader("Set-Cookie", "lia_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0");
+  res.json({ ok: true });
+});
+
+app.get("/auth-check", (req, res) => {
+  res.json({ loggedIn: isLoggedIn(req) });
+});
 
 app.get("/health", (req, res) => {
   const keyInfo = getGeminiKeyInfo();
+
   res.json({
-    name: "LIA AI",
-    version: "3.0",
+    name: "LIA",
+    version: "3.1",
     status: "online",
     brain: "Gemini",
     owner: "Hesham",
@@ -126,8 +252,9 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.get("/env-check", (req, res) => {
+app.get("/env-check", requireAuth, (req, res) => {
   const keyInfo = getGeminiKeyInfo();
+
   res.json({
     hasGeminiKey: Boolean(keyInfo.key),
     geminiKeySource: keyInfo.source,
@@ -139,21 +266,47 @@ app.get("/env-check", (req, res) => {
   });
 });
 
-app.post("/chat", async (req, res) => {
+app.get("/api", (req, res) => {
+  res.json({
+    name: "LIA",
+    version: "3.1",
+    endpoints: {
+      home: "GET /",
+      health: "GET /health",
+      envCheck: "GET /env-check",
+      chat: "POST /chat"
+    }
+  });
+});
+
+app.post("/chat", requireAuth, async (req, res) => {
   try {
     const { message, history = [], profile = {}, localContext = {} } = req.body;
 
     if (!message || typeof message !== "string") {
-      return res.json({ reply: "يا هشام، لم تصلني رسالة واضحة. اكتب رسالتك مرة أخرى." });
+      return res.json({
+        reply: "يا هشام، لم تصلني رسالة واضحة. اكتب رسالتك مرة أخرى."
+      });
     }
 
     const keyInfo = getGeminiKeyInfo();
+
     if (!keyInfo.key) {
-      return res.json({ reply: "يا هشام، ليا لا ترى مفتاح Gemini داخل السيرفر حتى الآن. افتح /env-check وتأكد أن hasGeminiKey = true." });
+      return res.json({
+        reply:
+          "يا هشام، ليا لا ترى مفتاح Gemini داخل السيرفر حتى الآن.\n\n" +
+          "افتح /env-check وتأكد أن hasGeminiKey = true."
+      });
     }
 
     const historyText = Array.isArray(history)
-      ? history.slice(-12).map((item) => `${item.role === "assistant" ? "ليا" : "هشام"}: ${item.text || ""}`).join("\n")
+      ? history
+          .slice(-12)
+          .map((item) => {
+            const role = item.role === "assistant" ? "ليا" : "هشام";
+            return `${role}: ${item.text || ""}`;
+          })
+          .join("\n")
       : "";
 
     const prompt = `
@@ -174,10 +327,19 @@ ${message}
 أجيبي برد طبيعي فقط، ولا تكتبي JSON. إذا فهمتِ أن الرسالة تحتوي مهمة أو دين أو مصروف أو ملاحظة، أكدي له بلطف أن ليا حفظتها أو رتبتها، لأن الواجهة ستقوم بالحفظ المحلي تلقائيًا.
 `;
 
-    const result = await callGemini({ apiKey: keyInfo.key, prompt });
+    const result = await callGemini({
+      apiKey: keyInfo.key,
+      prompt
+    });
 
     if (!result.ok) {
+      console.error(
+        "GEMINI_FAILED_ATTEMPTS:",
+        JSON.stringify(result.attempts, null, 2)
+      );
+
       const firstError = result.attempts?.[0];
+
       return res.json({
         reply:
           `يا هشام، Gemini رجّع خطأ حقيقي:\n\n` +
@@ -185,14 +347,24 @@ ${message}
           `طول المفتاح: ${keyInfo.length}\n` +
           `الموديل: ${firstError?.model || "غير معروف"}\n` +
           `الكود: ${firstError?.status || "غير معروف"}\n` +
-          `السبب: ${firstError?.error || "غير معروف"}`
+          `السبب: ${firstError?.error || "غير معروف"}\n\n` +
+          `انسخ هذه الرسالة لي وسأصلحها مباشرة.`
       });
     }
 
-    res.json({ reply: result.reply, model: result.model, keySource: keyInfo.source });
+    res.json({
+      reply: result.reply,
+      model: result.model,
+      keySource: keyInfo.source
+    });
   } catch (error) {
     console.error("LIA_CHAT_FAILED:", error);
-    res.json({ reply: `يا هشام، حصل خطأ داخلي في السيرفر:\n\n${error.message}` });
+
+    res.json({
+      reply:
+        `يا هشام، حصل خطأ داخلي في السيرفر:\n\n${error.message}\n\n` +
+        `أرسل لي هذه الرسالة وسأصلحها.`
+    });
   }
 });
 
@@ -201,4 +373,7 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`LIA AI v3.0 running on port ${PORT}`));
+
+app.listen(PORT, () => {
+  console.log(`LIA v3.1 running on port ${PORT}`);
+});

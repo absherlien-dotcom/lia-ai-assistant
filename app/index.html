@@ -2,22 +2,35 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>LIA — مساعد هشام الشخصي</title>
   <meta name="theme-color" content="#050710" />
   <meta name="description" content="LIA — Personal Intelligence for Hesham" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="./assets/lia-icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/lia-icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
   <section class="login-screen" id="loginScreen">
-    <div class="login-bg"><div class="orb login-orb"><span></span><i></i><b></b></div></div>
+    <div class="app-bg login-bg">
+      <div class="bg-glow one"></div>
+      <div class="bg-glow two"></div>
+      <div class="matrix-grid"></div>
+    </div>
+
     <div class="login-card glass">
+      <div class="logo-emblem">
+        <img src="./assets/lia-icon.svg" alt="LIA" />
+      </div>
       <div class="logo-word">LIA</div>
       <h1>دخول هشام</h1>
       <p>تسجيل دخول مرة واحدة لهذا الجهاز. بياناتك المحلية محفوظة في متصفحك فقط.</p>
+
       <form id="loginForm" class="login-form">
         <input id="loginUser" placeholder="اسم الدخول" autocomplete="username" />
         <input id="loginPass" type="password" placeholder="كلمة المرور" autocomplete="current-password" />
@@ -28,12 +41,19 @@
   </section>
 
   <div class="app-bg">
-    <div class="bg-glow one"></div><div class="bg-glow two"></div><div class="bg-glow three"></div><div class="matrix-grid"></div>
+    <div class="bg-glow one"></div>
+    <div class="bg-glow two"></div>
+    <div class="bg-glow three"></div>
+    <div class="matrix-grid"></div>
   </div>
 
   <main class="app-shell" id="appShell">
     <aside class="rail glass">
-      <div class="rail-brand"><div class="mini-logo">L</div><strong>ليا</strong></div>
+      <div class="rail-brand">
+        <img class="mini-logo-img" src="./assets/lia-icon.svg" alt="LIA" />
+        <strong>ليا</strong>
+      </div>
+
       <nav class="rail-tabs">
         <button class="tab-btn active" data-panel="chat" title="المحادثة">✦<span>محادثة</span></button>
         <button class="tab-btn" data-panel="voice" title="الصوت">◉<span>صوت</span></button>
@@ -42,33 +62,60 @@
         <button class="tab-btn" data-panel="memory" title="الذاكرة">◇<span>ذاكرة</span></button>
         <button class="tab-btn" data-panel="settings" title="الإعدادات">⚙<span>إعدادات</span></button>
       </nav>
+
       <button class="logout" id="logoutBtn" title="خروج">↩</button>
     </aside>
 
     <section class="main-space glass">
       <header class="topbar">
-        <div><p class="kicker">مرحبًا هشام 👋</p><h1 id="panelTitle">كيف أساعدك اليوم؟</h1></div>
-        <div class="status-pill" id="healthBadge"><span></span><b>فحص الاتصال...</b></div>
+        <div>
+          <p class="kicker">مرحبًا هشام 👋</p>
+          <h1 id="panelTitle">كيف أساعدك اليوم؟</h1>
+        </div>
+
+        <div class="top-actions">
+          <button class="install-btn" id="installBtn" hidden>تثبيت كتطبيق</button>
+          <div class="status-pill" id="healthBadge">
+            <span></span>
+            <b>فحص الاتصال...</b>
+          </div>
+        </div>
       </header>
 
       <section class="panel active" id="chatPanel">
         <div class="hero-zone">
-          <div class="orb-wrap"><div class="orb" id="mainOrb"><span></span><i></i><b></b></div></div>
+          <div class="orb-wrap">
+            <div class="lia-orb" id="mainOrb">
+              <img src="./assets/lia-icon.svg" alt="LIA" />
+              <span></span>
+              <i></i>
+            </div>
+          </div>
+
           <div class="hero-text">
             <h2>اسأل ليا أي شيء.</h2>
             <p>قل لها مهمة، دين، مصروف، ملاحظة أو فكرة. ستفهم وتضيفها تلقائيًا في مكانها.</p>
           </div>
         </div>
+
         <div class="smart-tabs">
           <button data-prompt="ليا، اليوم عندي مهمة الساعة 6 مساء أتابع موضوع مهم. احفظيها وذكّريني.">مهمة بوقت</button>
           <button data-prompt="ليا، سحبت دين من البقالة 3000 يمني.">دين بقالة</button>
           <button data-prompt="ليا، ساعديني أخفف مصاريفي هذا الشهر.">خفض المصروف</button>
           <button data-prompt="ليا، اسأليني أسئلة تفهمين بها وضعي الحالي.">افهميني</button>
         </div>
+
         <section class="chat-window glass-inner">
           <div class="messages" id="messages">
-            <article class="message lia"><div class="avatar">L</div><div class="bubble"><span>ليا</span><p>أنا جاهزة يا هشام. تكلم معي طبيعي، وأنا سأرتب لك المهام والديون والملاحظات تلقائيًا.</p></div></article>
+            <article class="message lia">
+              <div class="avatar"><img src="./assets/lia-icon.svg" alt="L" /></div>
+              <div class="bubble">
+                <span>ليا</span>
+                <p>أنا جاهزة يا هشام. تكلم معي طبيعي، وأنا سأرتب لك المهام والديون والملاحظات تلقائيًا.</p>
+              </div>
+            </article>
           </div>
+
           <form class="composer glass-input" id="chatForm">
             <button type="button" class="tool-btn" id="attachBtn">+</button>
             <textarea id="messageInput" rows="1" placeholder="اكتب أو اضغط صوت وتكلم مع ليا..."></textarea>
@@ -80,48 +127,174 @@
 
       <section class="panel" id="voicePanel">
         <div class="voice-stage">
-          <div class="orb huge" id="voiceOrb"><span></span><i></i><b></b></div>
+          <div class="lia-orb huge" id="voiceOrb">
+            <img src="./assets/lia-icon.svg" alt="LIA" />
+            <span></span>
+            <i></i>
+          </div>
           <h2>محادثة صوتية مع ليا</h2>
           <p id="voiceStatus">اضغط الزر وقل: “ليا عندي مهمة الساعة 6” أو “سحبت دين من البقالة 3000”.</p>
-          <button class="big-voice" id="startVoiceBtn">ابدأ الاستماع</button>
-          <button class="ghost" id="speakLastBtn">اقرأ آخر رد بصوت</button>
+          <div class="voice-actions">
+            <button class="big-voice" id="startVoiceBtn">ابدأ الاستماع</button>
+            <button class="ghost" id="speakLastBtn">اقرأ آخر رد</button>
+          </div>
+          <div class="voice-note" id="voiceNote">
+            إذا لم يظهر صوت عربي في الإعدادات، فالمتصفح/الهاتف لا يوفر صوت عربي حاليًا. على Android افتح إعدادات الهاتف ثم Text-to-speech وثبّت صوت عربي.
+          </div>
         </div>
       </section>
 
       <section class="panel" id="tasksPanel">
-        <div class="panel-head"><h2>المهام التي فهمتها ليا</h2><p>تُضاف تلقائيًا من المحادثة والصوت.</p></div>
-        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>قائمة المهام</strong><button id="clearTasksBtn">مسح المهام</button></div><div class="list" id="tasksList"></div></div><div class="data-card"><span>إجمالي المهام</span><b id="taskCount">0</b><p>مهمة محفوظة محليًا</p></div></div>
+        <div class="panel-head">
+          <h2>المهام التي فهمتها ليا</h2>
+          <p>هذه القائمة تُضاف تلقائيًا من المحادثة والصوت، ويمكنك تعديلها لاحقًا.</p>
+        </div>
+        <div class="data-layout">
+          <div class="data-card wide">
+            <div class="card-title">
+              <strong>قائمة المهام</strong>
+              <button id="clearTasksBtn">مسح المهام</button>
+            </div>
+            <div class="list" id="tasksList"></div>
+          </div>
+          <div class="data-card">
+            <span>إجمالي المهام</span>
+            <b id="taskCount">0</b>
+            <p>مهمة محفوظة محليًا</p>
+          </div>
+        </div>
       </section>
 
       <section class="panel" id="financePanel">
-        <div class="panel-head"><h2>الديون والمصاريف</h2><p>مدين، دائن، بقالة، مصاريف يومية، التزامات شهرية، وتحليل صرف تقريبي.</p></div>
-        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>الحركات المالية</strong><button id="clearFinanceBtn">مسح الماليات</button></div><div class="list" id="financeList"></div></div><div class="data-card"><span>إجمالي مسجل</span><b id="financeTotal">0</b><p>ريال يمني تقريبًا</p></div><div class="data-card"><span>تحليل ليا</span><p id="financeInsight">أخبر ليا بمصاريفك أو ديونك لتبدأ التحليل.</p></div></div>
+        <div class="panel-head">
+          <h2>الديون والمصاريف</h2>
+          <p>مدين، دائن، بقالة، مصاريف يومية، التزامات شهرية، وتحليل صرف تقريبي.</p>
+        </div>
+        <div class="data-layout">
+          <div class="data-card wide">
+            <div class="card-title">
+              <strong>الحركات المالية</strong>
+              <button id="clearFinanceBtn">مسح الماليات</button>
+            </div>
+            <div class="list" id="financeList"></div>
+          </div>
+          <div class="data-card">
+            <span>إجمالي مسجل</span>
+            <b id="financeTotal">0</b>
+            <p>ريال يمني تقريبًا</p>
+          </div>
+          <div class="data-card">
+            <span>تحليل ليا</span>
+            <p id="financeInsight">أخبر ليا بمصاريفك أو ديونك لتبدأ التحليل.</p>
+          </div>
+        </div>
       </section>
 
       <section class="panel" id="memoryPanel">
-        <div class="panel-head"><h2>ذاكرة محلية</h2><p>كل شيء هنا محفوظ على جهازك فقط عبر المتصفح.</p></div>
-        <div class="data-layout"><div class="data-card wide"><div class="card-title"><strong>الملاحظات والقرارات</strong><button id="clearMemoryBtn">مسح الذاكرة</button></div><div class="list" id="memoryList"></div></div><div class="data-card"><span>حجم الذاكرة</span><b id="memoryCount">0</b><p>عنصر محفوظ</p></div></div>
+        <div class="panel-head">
+          <h2>ذاكرة محلية</h2>
+          <p>كل شيء هنا محفوظ على جهازك فقط عبر المتصفح، وليس في قاعدة بيانات خارجية.</p>
+        </div>
+        <div class="data-layout">
+          <div class="data-card wide">
+            <div class="card-title">
+              <strong>الملاحظات والقرارات</strong>
+              <button id="clearMemoryBtn">مسح الذاكرة</button>
+            </div>
+            <div class="list" id="memoryList"></div>
+          </div>
+          <div class="data-card">
+            <span>حجم الذاكرة</span>
+            <b id="memoryCount">0</b>
+            <p>عنصر محفوظ</p>
+          </div>
+        </div>
       </section>
 
       <section class="panel" id="settingsPanel">
-        <div class="panel-head"><h2>إعدادات ليا</h2><p>تحكم في اللهجة والصوت والخصوصية المحلية.</p></div>
+        <div class="panel-head">
+          <h2>إعدادات ليا</h2>
+          <p>تحكم في اللهجة والصوت والخصوصية المحلية.</p>
+        </div>
+
         <div class="settings-grid">
-          <label class="setting-card"><span>لهجة الرد</span><select id="toneSelect"><option value="yemeni-formal">يمني رسمي ناعم</option><option value="fusha">فصحى راقية</option><option value="short-business">مختصر إداري</option><option value="friendly">ودود قريب</option></select></label>
-          <label class="setting-card"><span>الصوت</span><select id="voiceSelect"></select></label>
-          <div class="setting-card"><span>الخصوصية</span><p>المهام والديون والذاكرة محفوظة محليًا في هذا المتصفح. الردود الذكية تمر عبر Gemini API.</p></div>
+          <label class="setting-card">
+            <span>لهجة الرد</span>
+            <select id="toneSelect">
+              <option value="yemeni-formal">يمني رسمي ناعم</option>
+              <option value="fusha">فصحى راقية</option>
+              <option value="short-business">مختصر إداري</option>
+              <option value="friendly">ودود قريب</option>
+            </select>
+          </label>
+
+          <label class="setting-card">
+            <span>لغة التعرف الصوتي</span>
+            <select id="voiceLangSelect">
+              <option value="ar-YE">عربي يمني إن توفر</option>
+              <option value="ar-SA">عربي سعودي</option>
+              <option value="ar">عربي عام</option>
+              <option value="en-US">English</option>
+            </select>
+          </label>
+
+          <label class="setting-card">
+            <span>صوت القراءة</span>
+            <select id="voiceSelect"></select>
+            <small id="arabicVoiceStatus"></small>
+          </label>
+
+          <label class="setting-card switch-card">
+            <span>قراءة الرد تلقائيًا</span>
+            <input type="checkbox" id="autoSpeakToggle" />
+          </label>
+
+          <div class="setting-card">
+            <span>الخصوصية</span>
+            <p>المهام والديون والذاكرة محفوظة محليًا في هذا المتصفح. الردود الذكية تمر عبر Gemini API.</p>
+          </div>
+
+          <div class="setting-card">
+            <span>كتطبيق على الهاتف</span>
+            <p>بعد النشر افتح رابط Vercel من Chrome على الهاتف، ثم من ⋮ اختر: إضافة إلى الشاشة الرئيسية أو Install app.</p>
+          </div>
+
           <button class="danger" id="wipeAllBtn">مسح كل بيانات ليا من هذا الجهاز</button>
         </div>
       </section>
     </section>
 
     <aside class="insights glass">
-      <div class="brand-large"><div class="symbol-logo"><span>ليا</span></div><h2>LIA</h2><p>عقلك الثاني الهادئ.</p></div>
-      <div class="metric"><span>المهام</span><b id="sideTasks">0</b></div>
-      <div class="metric"><span>الماليات</span><b id="sideFinance">0</b></div>
-      <div class="metric"><span>الذاكرة</span><b id="sideMemory">0</b></div>
-      <div class="hint-card"><strong>أمثلة ذكية</strong><p>“ليا احفظي مهمة الساعة 6”</p><p>“سحبت دين من البقالة 3000”</p><p>“ذكريني أتابع فلان بكرة”</p></div>
+      <div class="brand-large">
+        <div class="symbol-logo">
+          <img src="./assets/lia-icon.svg" alt="LIA" />
+        </div>
+        <h2>LIA</h2>
+        <p>عقلك الثاني الهادئ.</p>
+      </div>
+
+      <div class="metric">
+        <span>المهام</span>
+        <b id="sideTasks">0</b>
+      </div>
+      <div class="metric">
+        <span>الماليات</span>
+        <b id="sideFinance">0</b>
+      </div>
+      <div class="metric">
+        <span>الذاكرة</span>
+        <b id="sideMemory">0</b>
+      </div>
+
+      <div class="hint-card">
+        <strong>أمثلة ذكية</strong>
+        <p>“ليا احفظي مهمة الساعة 6”</p>
+        <p>“سحبت دين من البقالة 3000”</p>
+        <p>“ذكريني أتابع فلان بكرة”</p>
+      </div>
     </aside>
   </main>
+
   <script src="./app.js"></script>
 </body>
 </html>
