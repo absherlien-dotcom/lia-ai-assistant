@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="google" content="notranslate" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>LIA V5.4 Clean</title>
+<title>LIA | lia.ai</title>
 <meta name="theme-color" content="#07051d" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/lia-icon-192.png" />
@@ -61,20 +61,69 @@ button,input,textarea,select{font-family:inherit} button{color:inherit;cursor:po
 .fab{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);width:72px;height:72px;border-radius:50%;border:1px solid rgba(60,232,255,.32);background:rgba(10,6,32,.84);display:grid;place-items:center;z-index:6;box-shadow:0 0 30px rgba(60,232,255,.26),0 0 40px rgba(236,92,255,.14)}.fab img{width:54px;height:54px}
 .toast{position:absolute;left:18px;right:18px;bottom:105px;background:rgba(8,8,28,.94);border:1px solid rgba(60,232,255,.28);border-radius:22px;padding:13px 16px;z-index:30;display:none;line-height:1.7;font-size:13px}.toast.show{display:block}
 @media(max-width:720px){.app{display:block;padding:0}.phone{width:100vw;height:100dvh;max-width:none;border:0;border-radius:0;box-shadow:none}.hero{min-height:300px}.hero h2{font-size:34px}}
+
+/* LIA Login Gate - Step 1 */
+button:disabled{cursor:not-allowed;opacity:.62}
+body[data-auth="login"] #shell,
+body[data-auth="checking"] #shell,
+body:not([data-auth="app"]) #shell{display:none!important}
+body[data-auth="app"] #login{display:none!important}
+body[data-auth="login"] #login,
+body[data-auth="checking"] #login{display:grid!important}
+.login{
+  place-items:center;
+  align-content:unset;
+  gap:0;
+  padding:22px;
+  background:
+    radial-gradient(circle at 50% 12%,rgba(60,232,255,.15),transparent 32%),
+    radial-gradient(circle at 14% 80%,rgba(236,92,255,.14),transparent 34%),
+    rgba(5,4,20,.96);
+  z-index:40;
+  overflow:hidden;
+}
+.login:before{content:"";position:absolute;width:260px;height:260px;right:-100px;top:-80px;border-radius:50%;background:rgba(60,232,255,.14);filter:blur(35px)}
+.login:after{content:"";position:absolute;width:280px;height:280px;left:-120px;bottom:-90px;border-radius:50%;background:rgba(236,92,255,.14);filter:blur(38px)}
+.login-card{position:relative;z-index:2;width:100%;max-width:366px;border-radius:36px;padding:20px 18px 18px;box-shadow:0 26px 80px rgba(0,0,0,.38)}
+.login-top{height:34px;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;direction:rtl}
+.pill,.login-state{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:999px;padding:7px 10px;font-size:11px;color:var(--muted);white-space:nowrap}
+.login-state.ok{color:var(--green);border-color:rgba(66,240,162,.25);background:rgba(66,240,162,.075)}
+.login-state.warn{color:#ffd28a;border-color:rgba(255,210,138,.25);background:rgba(255,210,138,.075)}
+.login-state.err{color:var(--red);border-color:rgba(255,95,128,.24);background:rgba(255,95,128,.075)}
+.logo-wrap{width:132px;height:132px;margin:6px auto 10px;border-radius:42px;display:grid;place-items:center;position:relative;background:linear-gradient(145deg,rgba(60,232,255,.12),rgba(124,77,255,.12),rgba(236,92,255,.10));border:1px solid rgba(255,255,255,.13);box-shadow:0 0 42px rgba(60,232,255,.12),inset 0 0 36px rgba(255,255,255,.04)}
+.logo-wrap:before{content:"";position:absolute;inset:12px;border-radius:34px;border:1px solid rgba(60,232,255,.25)}
+.logo-wrap .logo{width:96px;height:96px;margin:0}
+.login .brand{font-size:34px;letter-spacing:-.5px}
+.login h1{font-size:28px;line-height:1.35;margin:7px 0 0}
+.login p{margin:8px auto 0;max-width:310px}
+.google-btn{width:100%;margin-top:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:.18s ease}
+.google-btn.loading{pointer-events:none;opacity:.8}
+.google-btn:active{transform:scale(.985)}
+.login-foot{margin-top:12px;color:rgba(251,248,255,.58);font-size:11px;line-height:1.75}
+.login .warn{margin-top:12px}
+@media(max-width:720px){.login-card{max-width:none}}
+
 </style>
 </head>
-<body>
+<body data-auth="checking">
 <div class="bg"></div>
 <div class="app">
 <main class="phone">
-<section id="login" class="login">
-<img class="logo" src="/assets/lia-mark.png" alt="lia">
-<div class="brand">lia<span class="grad">.ai</span></div>
-<h1>دخول هشام</h1>
-<p>تسجيل دخول خاص. بياناتك المحلية للمهام والديون والذاكرة محفوظة داخل جهازك.</p>
-<button class="google-btn" id="googleLoginBtn" type="button"><span>متابعة بحساب Google</span><span class="g">G</span></button>
-<div class="warn" id="googleWarn">GOOGLE_CLIENT_ID غير جاهز أو الدومين غير مضاف في Google Cloud.</div>
-<small class="err" id="loginErr"></small>
+<section id="login" class="login" aria-label="تسجيل دخول ليا">
+<div class="login-card glass">
+  <div class="login-top">
+    <span class="pill">خاص بهشام</span>
+    <span class="login-state" id="loginStatus">فحص الدخول...</span>
+  </div>
+  <div class="logo-wrap"><img class="logo" src="/assets/lia-mark.png" alt="lia.ai"></div>
+  <div class="brand">lia<span class="grad">.ai</span></div>
+  <h1>دخول آمن إلى <span class="grad">ليا</span></h1>
+  <p>مساعدتك الشخصية للمهام، المذكرات، الديون، والصوت. الدخول محصور بحساب Google المصرح له فقط.</p>
+  <button class="google-btn" id="googleLoginBtn" type="button" disabled><span class="g">G</span><span id="googleBtnText">تجهيز Google...</span></button>
+  <div class="login-foot">بعد نجاح الدخول تظهر واجهة ليا فقط، بدون تداخل الشاشات أو النصوص.</div>
+  <div class="warn" id="googleWarn">GOOGLE_CLIENT_ID غير جاهز أو الدومين غير مضاف في Google Cloud.</div>
+  <small class="err" id="loginErr"></small>
+</div>
 </section>
 
 <section id="shell" class="shell hide">
@@ -142,15 +191,18 @@ let googleConfig=null,googleTokenClient=null,lastReply="",recognition=null,waveR
 function save(){localStorage.setItem("lia_chat",JSON.stringify(state.chat.slice(-80)));localStorage.setItem("lia_tasks",JSON.stringify(state.tasks));localStorage.setItem("lia_finance",JSON.stringify(state.finance));localStorage.setItem("lia_memory",JSON.stringify(state.memory));localStorage.setItem("lia_settings",JSON.stringify(state.settings))}
 function esc(v){return String(v??"").replace(/[&<>]/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]))}
 function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),3200)}
-async function authCheck(){try{const r=await fetch("/api/auth-check?t="+Date.now());const d=await r.json();d.loggedIn?showApp():showLogin()}catch(e){showLogin()}}
-function showLogin(){$("login").classList.remove("hide");$("shell").classList.add("hide")}
-function showApp(){$("login").classList.add("hide");$("shell").classList.remove("hide");checkHealth();renderAll();renderChat();go("home")}
+function setAuthMode(mode){document.body.dataset.auth=mode}
+function setLoginStatus(text,type=""){const el=$("loginStatus");if(!el)return;el.textContent=text;el.className="login-state"+(type?" "+type:"")}
+function setLoginLoading(isLoading,text){const btn=$("googleLoginBtn"),label=$("googleBtnText");if(btn)btn.classList.toggle("loading",!!isLoading);if(label&&text)label.textContent=text}
+async function authCheck(){setAuthMode("checking");setLoginStatus("فحص الجلسة...");try{const r=await fetch("/api/auth-check?t="+Date.now());const d=await r.json();d.loggedIn?showApp():showLogin("جاهز للدخول","ok")}catch(e){showLogin("الدخول يحتاج اتصال","warn")}}
+function showLogin(msg="جاهز للدخول",type="ok"){$("login").classList.remove("hide");$("shell").classList.add("hide");setAuthMode("login");setLoginStatus(msg,type);startWave(false)}
+function showApp(){$("login").classList.add("hide");$("shell").classList.remove("hide");setAuthMode("app");checkHealth();renderAll();renderChat();go("home")}
 async function loadGoogleConfig(){try{const r=await fetch("/api/config?t="+Date.now());googleConfig=await r.json();return googleConfig}catch(e){googleConfig={googleClientId:"",googleReady:false};return googleConfig}}
 function waitGoogle(n=0){if(window.google?.accounts?.oauth2)return Promise.resolve(true);if(n>45)return Promise.resolve(false);return new Promise(res=>setTimeout(()=>res(waitGoogle(n+1)),150))}
-async function initGoogleLogin(){const btn=$("googleLoginBtn"),warn=$("googleWarn");const cfg=await loadGoogleConfig();if(!cfg.googleClientId){warn.classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID لم يصل للتطبيق بعد.";return}const ok=await waitGoogle();if(!ok){$("loginErr").textContent="مكتبة Google لم تحمل. جرّب تحديث الصفحة أو Chrome.";return}googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:cfg.googleClientId,scope:"openid email profile",prompt:"select_account",callback:handleGoogleToken,error_callback:err=>{$("loginErr").textContent=err?.type==="popup_closed"?"أغلقت نافذة Google قبل إكمال الدخول.":"تعذر فتح نافذة Google. تأكد أن المتصفح لا يمنع النوافذ المنبثقة."}});btn.classList.add("ready");$("loginErr").textContent=""}
-async function handleGoogleToken(resp){if(!resp||resp.error){$("loginErr").textContent=resp?.error_description||"فشل اختيار حساب Google.";return}try{const r=await fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accessToken:resp.access_token})});const d=await r.json().catch(()=>({}));if(r.ok&&d.ok){playChime();showApp();return}$("loginErr").textContent=d.error||"هذا الحساب غير مصرح له بالدخول."}catch(e){$("loginErr").textContent="تعذر الاتصال أثناء تسجيل Google."}}
-$("googleLoginBtn").onclick=()=>{if(!googleConfig?.googleClientId){$("googleWarn").classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID غير جاهز.";loadGoogleConfig();return}if(!googleTokenClient){$("loginErr").textContent="Google لم يجهز بعد. انتظر ثانيتين وجرب.";initGoogleLogin();return}googleTokenClient.requestAccessToken({prompt:"select_account"})};
-function go(name){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.dataset.screen===name));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===name));if(name==="voice")startWave(true);else startWave(false)}
+async function initGoogleLogin(){const btn=$("googleLoginBtn"),warn=$("googleWarn");btn.disabled=true;warn.classList.remove("show");setLoginLoading(true,"تجهيز Google...");setLoginStatus("تجهيز Google...");const cfg=await loadGoogleConfig();if(!cfg.googleClientId){warn.classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID لم يصل للتطبيق بعد.";setLoginStatus("Google غير جاهز","warn");setLoginLoading(false,"تسجيل Google غير جاهز");return}const ok=await waitGoogle();if(!ok){$("loginErr").textContent="مكتبة Google لم تحمل. جرّب تحديث الصفحة أو Chrome.";setLoginStatus("Google لم يحمّل","err");setLoginLoading(false,"إعادة المحاولة");btn.disabled=false;return}googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:cfg.googleClientId,scope:"openid email profile",prompt:"select_account",callback:handleGoogleToken,error_callback:err=>{$("loginErr").textContent=err?.type==="popup_closed"?"أغلقت نافذة Google قبل إكمال الدخول.":"تعذر فتح نافذة Google. تأكد أن المتصفح لا يمنع النوافذ المنبثقة.";setLoginStatus("لم يكتمل الدخول","warn");setLoginLoading(false,"متابعة بحساب Google")}});btn.classList.add("ready");btn.disabled=false;$("loginErr").textContent="";setLoginLoading(false,"متابعة بحساب Google");setLoginStatus("Google جاهز","ok")}
+async function handleGoogleToken(resp){const btn=$("googleLoginBtn");btn.disabled=true;setLoginLoading(true,"جاري التحقق...");setLoginStatus("التحقق من الحساب...");if(!resp||resp.error){$("loginErr").textContent=resp?.error_description||"فشل اختيار حساب Google.";btn.disabled=false;setLoginLoading(false,"متابعة بحساب Google");setLoginStatus("فشل الاختيار","err");return}try{const r=await fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accessToken:resp.access_token})});const d=await r.json().catch(()=>({}));if(r.ok&&d.ok){setLoginStatus("تم الدخول","ok");playChime();showApp();return}$("loginErr").textContent=d.error||"هذا الحساب غير مصرح له بالدخول.";btn.disabled=false;setLoginLoading(false,"متابعة بحساب Google");setLoginStatus("حساب غير مصرح","err")}catch(e){$("loginErr").textContent="تعذر الاتصال أثناء تسجيل Google.";btn.disabled=false;setLoginLoading(false,"متابعة بحساب Google");setLoginStatus("خلل اتصال","err")}}
+$("googleLoginBtn").onclick=()=>{if(!googleConfig?.googleClientId){$("googleWarn").classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID غير جاهز.";loadGoogleConfig();return}if(!googleTokenClient){$("loginErr").textContent="Google لم يجهز بعد. جرّب مرة أخرى.";initGoogleLogin();return}googleTokenClient.requestAccessToken({prompt:"select_account"})};
+function go(name){if(document.body.dataset.auth!=="app")return;document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.dataset.screen===name));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===name));if(name==="voice")startWave(true);else startWave(false)}
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
 $("settingsBtn").onclick=()=>go("settings");$("fab").onclick=()=>{go("voice");playChime()};
 document.querySelectorAll("[data-prompt]").forEach(el=>el.onclick=()=>{go("chat");$("messageInput").value=el.dataset.prompt;$("messageInput").focus()});
@@ -163,13 +215,13 @@ function moneyCat(t){if(/بقال|دكان|سوبر/.test(t))return"بقالة";
 function detect(t){const a=[];if(/مهمة|مهمه|ذكّر|ذكر|موعد|الساعة|ساعه|تابع|اجتماع/.test(t))a.push({type:"task",title:t,time:timeFrom(t),createdAt:new Date().toISOString()});if(/دين|مدين|دائن|بقال|سحبت|تسلف|تسلفت|مصروف|اشتريت|دفعت/.test(t))a.push({type:"finance",title:t,amount:amount(t),category:moneyCat(t),createdAt:new Date().toISOString()});if(/ملاحظة|ملاحظه|فكرة|قرار|احفظي|تذكري/.test(t))a.push({type:"memory",title:t,createdAt:new Date().toISOString()});return a}
 function applyActs(a){for(const x of a){if(x.type==="task")state.tasks.unshift(x);if(x.type==="finance")state.finance.unshift(x);if(x.type==="memory")state.memory.unshift(x)}if(a.length){save();renderAll();toast("تم حفظ ما فهمته ليا تلقائيًا.")}}
 function confirmText(a){if(!a.length)return"";const p=[];if(a.some(x=>x.type==="task"))p.push("حفظت المهمة");if(a.some(x=>x.type==="finance"))p.push("سجلت الحركة المالية");if(a.some(x=>x.type==="memory"))p.push("حفظت الملاحظة");return"تمام يا هشام، "+p.join("، ")+ "."}
-async function askLia(message){const acts=detect(message);applyActs(acts);const waiting=document.createElement("div");waiting.className="msg lia";waiting.innerHTML=`<div class="micon"><img src="${mark}"></div><div class="bubble"><b>ليا</b><p>أفكر...</p></div>`;$("messages").appendChild(waiting);$("messages").scrollTop=$("messages").scrollHeight;try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,history:state.chat.slice(-12),profile:{owner:"هشام",tone:state.settings.tone},localContext:{tasks:state.tasks.slice(0,10),finance:state.finance.slice(0,10),memory:state.memory.slice(0,10),detectedActions:acts}})});if(r.status===401){showLogin();return}const d=await r.json();waiting.remove();const c=confirmText(acts);addMsg("lia",(c?c+"\\n\\n":"")+(d.reply||"وصلني طلبك يا هشام."))}catch(e){waiting.remove();addMsg("lia",(confirmText(acts)||"حصل خلل اتصال مؤقت يا هشام.")+"\\n"+e.message)}}
+async function askLia(message){const acts=detect(message);applyActs(acts);const waiting=document.createElement("div");waiting.className="msg lia";waiting.innerHTML=`<div class="micon"><img src="${mark}"></div><div class="bubble"><b>ليا</b><p>أفكر...</p></div>`;$("messages").appendChild(waiting);$("messages").scrollTop=$("messages").scrollHeight;try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,history:state.chat.slice(-12),profile:{owner:"هشام",tone:state.settings.tone},localContext:{tasks:state.tasks.slice(0,10),finance:state.finance.slice(0,10),memory:state.memory.slice(0,10),detectedActions:acts}})});if(r.status===401){waiting.remove();showLogin("انتهت الجلسة","warn");return}const d=await r.json();waiting.remove();const c=confirmText(acts);addMsg("lia",(c?c+"\\n\\n":"")+(d.reply||"وصلني طلبك يا هشام."))}catch(e){waiting.remove();addMsg("lia",(confirmText(acts)||"حصل خلل اتصال مؤقت يا هشام.")+"\\n"+e.message)}}
 $("chatForm").onsubmit=e=>{e.preventDefault();const m=$("messageInput").value.trim();if(!m)return;addMsg("user",m);$("messageInput").value="";askLia(m)};$("plusBtn").onclick=()=>toast("قريبًا: إضافة صور وملفات وملاحظات مباشرة.");
 function item(x){return`<div class="item"><b>${esc(x.title)}</b><small>${new Date(x.createdAt).toLocaleString("ar-YE")}${x.time?" • "+esc(x.time):""}${x.amount?" • "+Number(x.amount).toLocaleString("ar-YE")+" ر.ي":""}${x.category?" • "+esc(x.category):""}</small></div>`}
 function renderList(id,arr,empty){$(id).innerHTML=arr.length?arr.map(item).join(""):`<div class="item"><b>${empty}</b><small>تكلم مع ليا وستضيفها هنا تلقائيًا.</small></div>`}
 function total(){return state.finance.reduce((s,x)=>s+(Number(x.amount)||0),0)}
 function renderAll(){$("homeTasks").textContent=state.tasks.length;$("homeFinance").textContent=state.finance.length;$("homeMemory").textContent=state.memory.length;$("homeMoney").textContent=total().toLocaleString("ar-YE")+" ر.ي";$("financeTotal").textContent=total().toLocaleString("ar-YE")+" ر.ي";$("financeAnalysis").textContent=total()?`لو كان هذا صرفًا يوميًا فالشهر قد يصل تقريبًا إلى ${(total()*30).toLocaleString("ar-YE")} ر.ي.`:"سجل مصروف أو دين وسأحلله لك.";renderList("homeTaskList",state.tasks.slice(0,3),"لا توجد مهام اليوم");renderList("tasksList",state.tasks,"لا توجد مهام محفوظة");renderList("financeList",state.finance,"لا توجد حركات مالية");renderList("memoryList",state.memory,"لا توجد مذكرات")}
-$("clearTasks").onclick=()=>{state.tasks=[];save();renderAll()};$("clearFinance").onclick=()=>{state.finance=[];save();renderAll()};$("clearMemory").onclick=()=>{state.memory=[];save();renderAll()};$("wipeBtn").onclick=()=>{if(confirm("مسح بيانات ليا المحلية من هذا الجهاز؟")){localStorage.clear();location.reload()}};$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});showLogin()};
+$("clearTasks").onclick=()=>{state.tasks=[];save();renderAll()};$("clearFinance").onclick=()=>{state.finance=[];save();renderAll()};$("clearMemory").onclick=()=>{state.memory=[];save();renderAll()};$("wipeBtn").onclick=()=>{if(confirm("مسح بيانات ليا المحلية من هذا الجهاز؟")){localStorage.clear();location.reload()}};$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});showLogin("تم تسجيل الخروج","ok")};
 async function checkHealth(){try{const r=await fetch("/api/health?t="+Date.now());const d=await r.json();$("healthText").textContent=d.hasGeminiKey?`${d.model||"Gemini"} • متصلة`:"مفتاح Gemini غير ظاهر"}catch{$("healthText").textContent="غير متصلة"}}
 function playChime(){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const now=audioCtx.currentTime;[660,880,1174].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(0,now+i*.06);g.gain.linearRampToValueAtTime(.06,now+i*.06+.02);g.gain.exponentialRampToValueAtTime(.001,now+i*.06+.23);o.connect(g).connect(audioCtx.destination);o.start(now+i*.06);o.stop(now+i*.06+.25)})}catch(e){}}
 function getVoices(){return speechSynthesis?.getVoices?.()||[]}function loadVoices(){const voices=getVoices(),ar=voices.filter(v=>/^ar/i.test(v.lang));$("voiceSelect").innerHTML=`<option value="">بدون قراءة آلية / اختر صوت</option>`+ar.map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("")+voices.filter(v=>!/^ar/i.test(v.lang)).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("");$("voiceSelect").value=state.settings.voice||"";$("voiceNote").textContent=ar.length?`تم العثور على ${ar.length} صوت عربي. اختر الأهدأ.`:"لا يوجد صوت عربي جيد ظاهر في هذا المتصفح."}
@@ -179,7 +231,7 @@ function speak(text){const v=getVoices().find(v=>v.name===state.settings.voice);
 $("readLastBtn").onclick=()=>speak(lastReply||"أنا جاهزة يا هشام.");
 function startVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("التعرف الصوتي غير مدعوم هنا. جرّب Chrome على Android.");playChime();startWave(true);$("voiceOrb").classList.add("on");$("voiceStatus").textContent="أسمعك يا هشام...";recognition=new SR();recognition.lang=state.settings.voiceLang||"ar";recognition.interimResults=false;recognition.continuous=false;recognition.onresult=e=>{const t=e.results[0][0].transcript;$("voiceStatus").textContent="سمعت: "+t;go("chat");addMsg("user",t);askLia(t)};recognition.onerror=e=>{$("voiceStatus").textContent="تعذر الاستماع: "+e.error;startWave(false)};recognition.onend=()=>{$("voiceOrb").classList.remove("on");startWave(false)};recognition.start()}
 $("startVoiceBtn").onclick=startVoice;$("stopVoiceBtn").onclick=()=>{try{recognition&&recognition.stop()}catch(e){}startWave(false);$("voiceStatus").textContent="تم الإيقاف."};
-function startWave(active){cancelAnimationFrame(waveRAF);const c=$("waveCanvas");if(!c)return;const ctx=c.getContext("2d");function resize(){const r=c.getBoundingClientRect();c.width=Math.max(300,r.width*devicePixelRatio);c.height=Math.max(80,r.height*devicePixelRatio)}resize();let t=0;function draw(){t+=.035;const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,"#3ce8ff");g.addColorStop(.55,"#7c4dff");g.addColorStop(1,"#ec5cff");ctx.lineWidth=3*devicePixelRatio;ctx.strokeStyle=g;ctx.beginPath();for(let x=0;x<w;x+=4*devicePixelRatio){const n=active?(Math.sin(x*.017+t*3)+Math.sin(x*.033-t*1.7))*.5:Math.sin(x*.012+t)*.25;const amp=active?h*.26:h*.12;const y=h/2+n*amp*Math.sin((x/w)*Math.PI);if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();if(document.querySelector('[data-screen="voice"]').classList.contains("active"))waveRAF=requestAnimationFrame(draw)}draw()}
+function startWave(active){cancelAnimationFrame(waveRAF);const c=$("waveCanvas");if(!c)return;const ctx=c.getContext("2d");function resize(){const r=c.getBoundingClientRect();c.width=Math.max(300,r.width*devicePixelRatio);c.height=Math.max(80,r.height*devicePixelRatio)}resize();let t=0;function draw(){t+=.035;const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,"#3ce8ff");g.addColorStop(.55,"#7c4dff");g.addColorStop(1,"#ec5cff");ctx.lineWidth=3*devicePixelRatio;ctx.strokeStyle=g;ctx.beginPath();for(let x=0;x<w;x+=4*devicePixelRatio){const n=active?(Math.sin(x*.017+t*3)+Math.sin(x*.033-t*1.7))*.5:Math.sin(x*.012+t)*.25;const amp=active?h*.26:h*.12;const y=h/2+n*amp*Math.sin((x/w)*Math.PI);if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();if(document.body.dataset.auth==="app"&&document.querySelector('[data-screen="voice"]').classList.contains("active"))waveRAF=requestAnimationFrame(draw)}draw()}
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else toast("من Chrome اضغط ⋮ ثم إضافة إلى الشاشة الرئيسية.")};
 initGoogleLogin();authCheck();
 </script>
