@@ -1,1 +1,28 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bg" cx="50%" cy="44%" r="65%"><stop offset="0%" stop-color="#172A5C"/><stop offset="54%" stop-color="#070B1E"/><stop offset="100%" stop-color="#03040B"/></radialGradient><linearGradient id="s" x1="100" y1="135" x2="410" y2="390"><stop stop-color="#67E8F9"/><stop offset=".48" stop-color="#8B5CF6"/><stop offset="1" stop-color="#EC5CFF"/></linearGradient><filter id="g" x="-40" y="-40" width="592" height="592"><feGaussianBlur stdDeviation="9" result="b"/><feColorMatrix in="b" type="matrix" values="0 0 0 0 .35 0 0 0 0 .78 0 0 0 0 1 0 0 0 .9 0"/><feBlend in="SourceGraphic" mode="screen"/></filter></defs><rect width="512" height="512" rx="120" fill="url(#bg)"/><circle cx="256" cy="246" r="158" stroke="#67E8F9" stroke-opacity=".12" stroke-width="2"/><circle cx="256" cy="246" r="114" stroke="#EC5CFF" stroke-opacity=".18" stroke-width="2" stroke-dasharray="5 9"/><g filter="url(#g)"><path d="M132 316C158 382 217 420 288 407C373 391 426 306 401 226C379 155 309 113 239 127C170 141 126 203 136 268C145 331 210 359 274 314C318 283 333 238 385 251C352 220 309 225 271 259C226 300 175 288 166 247C155 196 192 150 246 140C310 129 369 166 389 229C413 307 360 383 283 395C222 405 168 374 143 318C135 301 129 286 126 266C123 284 126 302 132 316Z" fill="url(#s)"/><path d="M165 319C219 284 240 248 260 213C290 160 346 164 381 207C334 188 303 213 279 257C246 319 208 343 165 319Z" fill="white" opacity=".92"/></g><path d="M386 122L399 154L431 167L399 180L386 212L373 180L341 167L373 154L386 122Z" fill="#EC5CFF"/><text x="256" y="448" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="62" font-weight="900" letter-spacing="9">LIA</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="liaGradient" x1="92" y1="108" x2="420" y2="398" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3CE8FF"/>
+      <stop offset="0.52" stop-color="#7C4DFF"/>
+      <stop offset="1" stop-color="#EC5CFF"/>
+    </linearGradient>
+    <radialGradient id="liaBg" cx="50%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#18304D"/>
+      <stop offset="0.55" stop-color="#0A102B"/>
+      <stop offset="1" stop-color="#050414"/>
+    </radialGradient>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.23 0 0 0 0 0.91 0 0 0 0 1 0 0 0 0.85 0"/>
+      <feBlend in="SourceGraphic" mode="screen"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="122" fill="url(#liaBg)"/>
+  <circle cx="256" cy="255" r="160" fill="none" stroke="#3CE8FF" stroke-opacity="0.18" stroke-width="2"/>
+  <circle cx="256" cy="255" r="118" fill="none" stroke="#EC5CFF" stroke-opacity="0.22" stroke-width="2" stroke-dasharray="8 10"/>
+  <g filter="url(#softGlow)">
+    <path d="M154 155C174 151 190 166 190 187V287C190 318 214 342 245 342H347C370 342 387 360 387 382C387 404 370 421 347 421H243C167 421 108 362 108 286V190C108 171 124 158 154 155Z" fill="url(#liaGradient)"/>
+    <path d="M200 342C245 313 265 275 285 238C316 178 371 181 407 227C359 207 330 230 303 282C274 338 236 363 200 342Z" fill="#FFFFFF" fill-opacity="0.92"/>
+    <circle cx="395" cy="132" r="23" fill="#9B5CFF"/>
+  </g>
+  <text x="256" y="465" text-anchor="middle" font-family="Arial, sans-serif" font-size="54" font-weight="900" fill="#FFFFFF">lia.ai</text>
+</svg>
