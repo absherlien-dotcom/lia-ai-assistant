@@ -1,6 +1,6 @@
 {
-  "name": "lia-v5-mobile-voice-pro",
-  "version": "5.0.0",
+  "name": "lia-v5-1-google-mobile-fix",
+  "version": "5.1.0",
   "type": "module",
   "scripts": {
     "start": "node server.js",

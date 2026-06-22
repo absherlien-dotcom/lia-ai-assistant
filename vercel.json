@@ -2,6 +2,22 @@
   "version": 2,
   "rewrites": [
     {
+      "source": "/api/config",
+      "destination": "/api/index?route=config"
+    },
+    {
+      "source": "/api/google-login",
+      "destination": "/api/index?route=google-login"
+    },
+    {
+      "source": "/config",
+      "destination": "/api/index?route=config"
+    },
+    {
+      "source": "/google-login",
+      "destination": "/api/index?route=google-login"
+    },
+    {
       "source": "/api/login",
       "destination": "/api/index?route=login"
     },

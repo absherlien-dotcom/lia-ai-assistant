@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>LIA V5 — مساعد هشام الشخصي</title>
+<title>LIA V5.1 — مساعد هشام الشخصي</title>
 <meta name="theme-color" content="#09051f" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/lia-icon-192.png" />
@@ -137,7 +137,60 @@ background-size:42px 42px;mask-image:radial-gradient(circle at center,#000,trans
   .desktop-note h2{font-size:34px;margin:0 0 12px}.desktop-note p{color:var(--muted);line-height:1.9}
   .desktop-note img{width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(56,230,255,.45))}
 }
+
+/* ===== LIA V5.1 CRITICAL LAYOUT FIX ===== */
+.shell{
+  grid-template-rows:28px 78px minmax(0,1fr) 92px !important;
+}
+.statusbar{grid-row:1}
+.header{grid-row:2}
+.views{grid-row:3; min-height:0 !important;}
+.bottom-nav{grid-row:4}
+.view{padding-bottom:10px}
+.home-view{align-content:start !important}
+@media(max-width:720px){
+  html,body{width:100%;height:100%;overflow:hidden}
+  #app{display:block !important;padding:0 !important;width:100vw;height:100dvh}
+  .phone{
+    width:100vw !important;
+    height:100dvh !important;
+    max-width:none !important;
+    border-radius:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+  }
+  .desktop-note{display:none !important}
+  .header{padding:8px 18px 8px !important}
+  .statusbar{height:28px !important}
+  .views{height:auto !important}
+  .hero{min-height:310px !important;display:grid;align-content:center}
+  .hero h2{font-size:34px !important}
+  .quick{grid-template-columns:repeat(2,1fr) !important}
+  .bottom-nav{height:88px !important;padding-bottom:max(8px,env(safe-area-inset-bottom)) !important}
+  .composer{height:68px !important}
+  .messages{padding-bottom:16px !important}
+}
+.google-login-box{
+  display:grid;gap:12px;margin-top:4px
+}
+.google-btn{
+  min-height:58px;border:1px solid rgba(255,255,255,.18);border-radius:22px;
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));
+  color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:inset 0 0 24px rgba(255,255,255,.035)
+}
+.google-btn::before{
+  content:"G";width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:#fff;color:#111;font-weight:800;font-family:Arial,sans-serif
+}
+.setup-warning{
+  color:#ffd28a;font-size:12px;line-height:1.8;background:rgba(255,210,138,.08);
+  border:1px solid rgba(255,210,138,.2);border-radius:18px;padding:12px;display:none
+}
+.setup-warning.show{display:block}
+
 </style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 <div class="app-bg"></div>
@@ -155,12 +208,16 @@ background-size:42px 42px;mask-image:radial-gradient(circle at center,#000,trans
       <div class="brand-word">lia<span class="grad">.ai</span></div>
       <h1>دخول هشام</h1>
       <p>تسجيل دخول خاص. بياناتك المحلية للمهام والديون والذاكرة محفوظة داخل جهازك.</p>
-      <form id="loginForm">
-        <input class="input" id="loginUser" placeholder="اسم الدخول" autocomplete="username" value="hesham1amd" />
-        <input class="input" id="loginPass" placeholder="كلمة المرور" type="password" autocomplete="current-password" />
-        <button class="primary" type="submit">دخول إلى ليا</button>
-        <small class="err" id="loginErr"></small>
-      </form>
+      
+<div class="google-login-box">
+  <button class="google-btn" id="googleLoginBtn" type="button">الدخول بحساب Google</button>
+  <div id="googleButtonHost"></div>
+  <div class="setup-warning" id="googleSetupWarning">
+    تسجيل Google يحتاج إضافة متغير GOOGLE_CLIENT_ID في Vercel، وتحديد بريد هشام في LIA_ALLOWED_EMAIL.
+  </div>
+  <small class="err" id="loginErr"></small>
+</div>
+
     </section>
 
     <section id="shell" class="shell hide">
@@ -502,6 +559,7 @@ function startWave(active){
 window.addEventListener("beforeinstallprompt", e=>{e.preventDefault(); deferredPrompt=e;});
 $("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null;} else toast("من Chrome اضغط ⋮ ثم إضافة إلى الشاشة الرئيسية.")};
 
+initGoogleLogin();
 authCheck();
 </script>
 </body>
