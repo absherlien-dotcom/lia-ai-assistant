@@ -10,18 +10,6 @@
       "destination": "/api/index?route=google-login"
     },
     {
-      "source": "/config",
-      "destination": "/api/index?route=config"
-    },
-    {
-      "source": "/google-login",
-      "destination": "/api/index?route=google-login"
-    },
-    {
-      "source": "/api/login",
-      "destination": "/api/index?route=login"
-    },
-    {
       "source": "/api/logout",
       "destination": "/api/index?route=logout"
     },
@@ -34,16 +22,16 @@
       "destination": "/api/index?route=health"
     },
     {
-      "source": "/api/env-check",
-      "destination": "/api/index?route=env-check"
-    },
-    {
       "source": "/api/chat",
       "destination": "/api/index?route=chat"
     },
     {
-      "source": "/login",
-      "destination": "/api/index?route=login"
+      "source": "/config",
+      "destination": "/api/index?route=config"
+    },
+    {
+      "source": "/google-login",
+      "destination": "/api/index?route=google-login"
     },
     {
       "source": "/logout",
@@ -56,10 +44,6 @@
     {
       "source": "/health",
       "destination": "/api/index?route=health"
-    },
-    {
-      "source": "/env-check",
-      "destination": "/api/index?route=env-check"
     },
     {
       "source": "/chat",

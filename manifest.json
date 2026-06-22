@@ -1,15 +1,14 @@
 {
   "name": "LIA - مساعد هشام الشخصي",
   "short_name": "LIA",
-  "description": "مساعد هشام الشخصي للمهام والديون والذاكرة والمحادثة الصوتية.",
+  "lang": "ar",
+  "dir": "rtl",
   "start_url": "/?app=1",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "dir": "rtl",
-  "lang": "ar",
-  "background_color": "#050414",
-  "theme_color": "#09051f",
+  "background_color": "#060417",
+  "theme_color": "#07051d",
   "icons": [
     {
       "src": "/assets/lia-icon-192.png",
