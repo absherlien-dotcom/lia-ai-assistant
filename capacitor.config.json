@@ -1,0 +1,17 @@
+{
+  "appId": "com.lia.aiassistant",
+  "appName": "LIA AI",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://lia-ai-assistant.vercel.app",
+    "cleartext": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "backgroundColor": "#050414",
+      "showSpinner": false
+    }
+  }
+}
