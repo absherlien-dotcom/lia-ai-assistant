@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
 
 public class MainActivity extends Activity {
     private WebView webView;
-    private static final String LIA_URL = "https://lia-ai-assistant.vercel.app/?apk=1";
+    private static final String LIA_URL = "https://lia-ai-assistant.vercel.app/index.html?apk=1&v=apk-static-2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,8 @@ public class MainActivity extends Activity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
-                runOnUiThread(() -> request.grant(request.getResources()));
+                String[] resources = request.getResources();
+                request.grant(resources);
             }
         });
 
