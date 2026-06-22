@@ -1,20 +1,33 @@
 export default async function handler(req, res) {
-  const apiKey = process.env.ELEVENLABS_API_KEY;
-  const voiceId = process.env.ELEVENLABS_VOICE_ID;
-
-  if (!apiKey || !voiceId) {
-    return res.status(500).json({
-      ok: false,
-      hasApiKey: Boolean(apiKey),
-      hasVoiceId: Boolean(voiceId),
-      error: 'Missing ELEVENLABS_API_KEY or ELEVENLABS_VOICE_ID',
-    });
-  }
-
   try {
+    const apiKey = String(process.env.ELEVENLABS_API_KEY || '').trim();
+    const voiceId = String(process.env.ELEVENLABS_VOICE_ID || '').trim();
+
+    res.setHeader('Cache-Control', 'no-store');
+
+    if (req.query?.mode === 'env') {
+      return res.status(200).json({
+        ok: true,
+        hasApiKey: Boolean(apiKey),
+        apiKeyLength: apiKey.length,
+        hasVoiceId: Boolean(voiceId),
+        voiceIdLength: voiceId.length,
+        node: process.version,
+      });
+    }
+
+    if (!apiKey || !voiceId) {
+      return res.status(500).json({
+        ok: false,
+        hasApiKey: Boolean(apiKey),
+        hasVoiceId: Boolean(voiceId),
+        error: 'Missing ELEVENLABS_API_KEY or ELEVENLABS_VOICE_ID',
+      });
+    }
+
     const text = 'مرحباً يا هشام، أنا ليا. هذا اختبار مباشر لصوتي الحقيقي من ElevenLabs.';
     const elevenResponse = await fetch(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(voiceId)}`,
       {
         method: 'POST',
         headers: {
@@ -37,24 +50,34 @@ export default async function handler(req, res) {
 
     if (!elevenResponse.ok) {
       const details = await elevenResponse.text().catch(() => '');
-      return res.status(elevenResponse.status).json({
+      return res.status(200).json({
         ok: false,
         error: 'ElevenLabs request failed',
-        status: elevenResponse.status,
-        details: details.slice(0, 1000),
+        elevenStatus: elevenResponse.status,
+        hasApiKey: true,
+        hasVoiceId: true,
+        details: details.slice(0, 1500),
       });
     }
 
-    const audioBuffer = Buffer.from(await elevenResponse.arrayBuffer());
-    res.setHeader('Content-Type', 'audio/mpeg');
-    res.setHeader('Cache-Control', 'no-store');
-    res.setHeader('Content-Disposition', 'inline; filename="lia-tts-test.mp3"');
-    return res.status(200).send(audioBuffer);
+    const audioArrayBuffer = await elevenResponse.arrayBuffer();
+    const audioBuffer = Buffer.from(audioArrayBuffer);
+
+    res.writeHead(200, {
+      'Content-Type': 'audio/mpeg',
+      'Content-Length': String(audioBuffer.length),
+      'Cache-Control': 'no-store',
+      'Content-Disposition': 'inline; filename="lia-tts-test.mp3"',
+    });
+    return res.end(audioBuffer);
   } catch (error) {
-    return res.status(500).json({
+    console.error('TTS_TEST_CRASH', error);
+    return res.status(200).json({
       ok: false,
-      error: 'TTS test server error',
-      details: error.message,
+      error: 'TTS test crashed safely',
+      name: error?.name || 'Error',
+      message: error?.message || String(error),
+      stack: String(error?.stack || '').slice(0, 1000),
     });
   }
 }
