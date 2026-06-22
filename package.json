@@ -1,6 +1,6 @@
 {
-  "name": "lia-v5-1-google-mobile-fix",
-  "version": "5.1.0",
+  "name": "lia-v5-2-google-chooser-once",
+  "version": "5.2.0",
   "type": "module",
   "scripts": {
     "start": "node server.js",

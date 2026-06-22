@@ -77,19 +77,54 @@ export default async function handler(req,res){
 
   if(r==="google-login"){
     if(req.method!=="POST") return res.status(405).json({error:"METHOD_NOT_ALLOWED"});
-    const { credential } = req.body || {};
-    if(!GOOGLE_CLIENT_ID) return res.status(500).json({ok:false,error:"GOOGLE_CLIENT_ID غير مضاف في Vercel."});
-    if(!credential) return res.status(400).json({ok:false,error:"لم يصل رمز Google."});
+
+    const { accessToken, credential } = req.body || {};
+    if(!GOOGLE_CLIENT_ID) {
+      return res.status(500).json({ ok:false, error:"GOOGLE_CLIENT_ID غير مضاف في Vercel." });
+    }
+
     try{
-      const verify = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
-      const profile = await verify.json();
-      if(!verify.ok) return res.status(401).json({ok:false,error:"تعذر التحقق من حساب Google."});
-      if(profile.aud !== GOOGLE_CLIENT_ID) return res.status(401).json({ok:false,error:"Google Client ID غير مطابق."});
-      if(LIA_ALLOWED_EMAIL && profile.email !== LIA_ALLOWED_EMAIL) return res.status(403).json({ok:false,error:"هذا الحساب غير مصرح له بالدخول إلى ليا."});
+      let profile = null;
+
+      if(accessToken){
+        const tokenInfoRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?access_token=${encodeURIComponent(accessToken)}`);
+        const tokenInfo = await tokenInfoRes.json().catch(()=>({}));
+
+        if(!tokenInfoRes.ok){
+          return res.status(401).json({ ok:false, error:"تعذر التحقق من رمز Google." });
+        }
+
+        const audience = tokenInfo.aud || tokenInfo.audience;
+        if(audience && audience !== GOOGLE_CLIENT_ID){
+          return res.status(401).json({ ok:false, error:"Google Client ID غير مطابق لهذا الرمز." });
+        }
+
+        const userInfoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        profile = await userInfoRes.json().catch(()=>({}));
+
+        if(!userInfoRes.ok || !profile.email){
+          return res.status(401).json({ ok:false, error:"تعذر قراءة بريد حساب Google." });
+        }
+      } else if(credential) {
+        const verify = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`);
+        profile = await verify.json().catch(()=>({}));
+
+        if(!verify.ok) return res.status(401).json({ok:false,error:"تعذر التحقق من حساب Google."});
+        if(profile.aud !== GOOGLE_CLIENT_ID) return res.status(401).json({ok:false,error:"Google Client ID غير مطابق."});
+      } else {
+        return res.status(400).json({ ok:false, error:"لم يصل رمز Google." });
+      }
+
+      if(LIA_ALLOWED_EMAIL && profile.email !== LIA_ALLOWED_EMAIL){
+        return res.status(403).json({ ok:false, error:"هذا الحساب غير مصرح له بالدخول إلى ليا." });
+      }
+
       setSessionCookie(res);
-      return res.json({ok:true,email:profile.email,name:profile.name||"هشام"});
+      return res.json({ ok:true, email:profile.email, name:profile.name || "هشام" });
     }catch(error){
-      return res.status(500).json({ok:false,error:"فشل التحقق من Google: "+error.message});
+      return res.status(500).json({ ok:false, error:"فشل التحقق من Google: " + error.message });
     }
   }
 
@@ -103,7 +138,7 @@ export default async function handler(req,res){
   if(r==="auth-check") return res.json({loggedIn:isLoggedIn(req)});
   if(r==="health"){
     const k=getGeminiKeyInfo();
-    return res.json({name:"LIA",version:"5.1",status:"online",brain:"Gemini",owner:"Hesham",hasGeminiKey:Boolean(k.key),geminiKeySource:k.source,geminiKeyLength:k.length,model:process.env.GEMINI_MODEL||"gemini-2.5-flash"});
+    return res.json({name:"LIA",version:"5.2",status:"online",brain:"Gemini",owner:"Hesham",hasGeminiKey:Boolean(k.key),geminiKeySource:k.source,geminiKeyLength:k.length,model:process.env.GEMINI_MODEL||"gemini-2.5-flash"});
   }
   if(r==="env-check"){
     if(!isLoggedIn(req)) return res.status(401).json({error:"UNAUTHORIZED"});

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>LIA V5.1 — مساعد هشام الشخصي</title>
+<title>LIA V5.2 — مساعد هشام الشخصي</title>
 <meta name="theme-color" content="#09051f" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/lia-icon-192.png" />
@@ -189,6 +189,17 @@ background-size:42px 42px;mask-image:radial-gradient(circle at center,#000,trans
 }
 .setup-warning.show{display:block}
 
+
+/* ===== LIA V5.2 GOOGLE CHOOSER FIX ===== */
+.google-btn.ready{
+  border-color:rgba(56,230,255,.28);
+  box-shadow:0 0 28px rgba(56,230,255,.12), inset 0 0 24px rgba(255,255,255,.035);
+}
+.google-btn.loading{opacity:.72;pointer-events:none}
+.google-btn.disabled{opacity:.55}
+#googleButtonHost{display:none!important}
+.login{justify-content:center}
+
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
@@ -210,10 +221,10 @@ background-size:42px 42px;mask-image:radial-gradient(circle at center,#000,trans
       <p>تسجيل دخول خاص. بياناتك المحلية للمهام والديون والذاكرة محفوظة داخل جهازك.</p>
       
 <div class="google-login-box">
-  <button class="google-btn" id="googleLoginBtn" type="button">الدخول بحساب Google</button>
+  <button class="google-btn" id="googleLoginBtn" type="button">متابعة بحساب Google</button>
   <div id="googleButtonHost"></div>
   <div class="setup-warning" id="googleSetupWarning">
-    تسجيل Google يحتاج إضافة متغير GOOGLE_CLIENT_ID في Vercel، وتحديد بريد هشام في LIA_ALLOWED_EMAIL.
+    حتى يظهر اختيار حسابات Google لازم تضيف GOOGLE_CLIENT_ID في Vercel وتضيف دومين الموقع في Google Cloud.
   </div>
   <small class="err" id="loginErr"></small>
 </div>
