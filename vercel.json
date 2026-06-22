@@ -24,30 +24,6 @@
     {
       "source": "/api/chat",
       "destination": "/api/index?route=chat"
-    },
-    {
-      "source": "/config",
-      "destination": "/api/index?route=config"
-    },
-    {
-      "source": "/google-login",
-      "destination": "/api/index?route=google-login"
-    },
-    {
-      "source": "/logout",
-      "destination": "/api/index?route=logout"
-    },
-    {
-      "source": "/auth-check",
-      "destination": "/api/index?route=auth-check"
-    },
-    {
-      "source": "/health",
-      "destination": "/api/index?route=health"
-    },
-    {
-      "source": "/chat",
-      "destination": "/api/index?route=chat"
     }
   ],
   "headers": [

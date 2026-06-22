@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" translate="no" class="notranslate">
 <head>
 <meta charset="UTF-8" />
+<meta name="google" content="notranslate" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>LIA V5.3 — مساعد هشام الشخصي</title>
+<title>LIA V5.4 Clean</title>
 <meta name="theme-color" content="#07051d" />
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/lia-icon-192.png" />
@@ -11,168 +12,174 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
-:root{--bg:#050414;--panel:rgba(255,255,255,.07);--panel2:rgba(255,255,255,.045);--line:rgba(255,255,255,.14);--line2:rgba(72,217,255,.27);--text:#fbf8ff;--muted:#a8a0c6;--cyan:#3ce8ff;--blue:#408cff;--violet:#7c4dff;--pink:#ec5cff;--green:#40f0a2;--red:#ff5e7f;--shadow:0 28px 80px rgba(0,0,0,.45)}
+:root{
+  --bg:#050414;--card:rgba(255,255,255,.075);--card2:rgba(255,255,255,.045);
+  --line:rgba(255,255,255,.14);--cyan:#3ce8ff;--violet:#7c4dff;--pink:#ec5cff;
+  --text:#fbf8ff;--muted:#aea6c9;--green:#42f0a2;--red:#ff5f80;
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Readex Pro','IBM Plex Sans Arabic',system-ui,sans-serif;color:var(--text)}
-button,input,textarea,select{font-family:inherit}button{cursor:pointer;color:inherit}
-.bg{position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 20% 16%,rgba(60,232,255,.18),transparent 27%),radial-gradient(circle at 84% 10%,rgba(236,92,255,.16),transparent 30%),linear-gradient(145deg,#03030d,#08051f 55%,#120627)}
-.bg:before{content:"";position:absolute;inset:-30%;background:linear-gradient(120deg,transparent 20%,rgba(60,232,255,.14),transparent 58%),linear-gradient(70deg,transparent 10%,rgba(236,92,255,.14),transparent 65%);filter:blur(42px);animation:flow 10s ease-in-out infinite alternate}
-.bg:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(circle at center,#000,transparent 78%)}
-@keyframes flow{to{transform:translate3d(-3%,2%,0) scale(1.06)}}
-.glass{background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));border:1px solid var(--line);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:var(--shadow)}
-.hide{display:none!important}.grad{background:linear-gradient(90deg,var(--cyan),#fff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
-.app{height:100dvh;width:100vw;display:grid;place-items:center;padding:16px}
-.phone{position:relative;width:min(100%,430px);height:min(100dvh - 22px,930px);border-radius:44px;overflow:hidden;border:1px solid rgba(255,255,255,.15);background:linear-gradient(180deg,rgba(10,7,35,.86),rgba(5,5,20,.96));box-shadow:0 0 0 8px rgba(255,255,255,.035),0 35px 90px rgba(0,0,0,.55)}
-.side-card{display:none}.login{position:absolute;inset:0;display:grid;align-content:center;gap:18px;padding:30px;text-align:center;z-index:10;background:rgba(5,4,20,.92)}
-.logo{width:120px;height:120px;object-fit:contain;margin:auto;filter:drop-shadow(0 0 25px rgba(60,232,255,.48))}
-.login h1{font-size:34px;margin:0}.login p{margin:0;color:var(--muted);line-height:1.8;font-size:14px}.brand{font-size:32px;font-weight:700;direction:ltr}
-.google-box{display:grid;gap:12px}.google-btn{height:58px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.055));color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:inset 0 0 24px rgba(255,255,255,.035)}
-.google-btn.ready{border-color:var(--line2);box-shadow:0 0 28px rgba(60,232,255,.12),inset 0 0 24px rgba(255,255,255,.035)}.g{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111;font-weight:800;font-family:Arial}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Readex Pro','IBM Plex Sans Arabic',system-ui,sans-serif}
+button,input,textarea,select{font-family:inherit} button{color:inherit;cursor:pointer}
+.bg{position:fixed;inset:0;z-index:-1;background:
+ radial-gradient(circle at 20% 12%,rgba(60,232,255,.18),transparent 32%),
+ radial-gradient(circle at 85% 18%,rgba(236,92,255,.18),transparent 34%),
+ linear-gradient(145deg,#03030d,#08051f 55%,#15082c)}
+.bg:after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px}
+.app{height:100dvh;width:100vw;display:grid;place-items:center;padding:12px}
+.phone{position:relative;width:min(100%,430px);height:min(100dvh - 20px,930px);overflow:hidden;border-radius:42px;border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(9,7,34,.95),rgba(4,4,18,.98));box-shadow:0 0 0 8px rgba(255,255,255,.032),0 30px 90px rgba(0,0,0,.55)}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.038));border:1px solid var(--line);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.grad{background:linear-gradient(90deg,var(--cyan),#fff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hide{display:none!important}
+.login{position:absolute;inset:0;display:grid;align-content:center;text-align:center;gap:16px;padding:30px;background:rgba(5,4,20,.95);z-index:10}
+.logo{width:120px;height:120px;margin:auto;object-fit:contain;filter:drop-shadow(0 0 25px rgba(60,232,255,.45))}
+.login h1{font-size:34px;margin:0}.brand{font-size:31px;font-weight:700;direction:ltr}.login p{margin:0;color:var(--muted);line-height:1.8;font-size:14px}
+.google-btn{height:58px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.055));display:flex;align-items:center;justify-content:center;gap:10px;font-weight:700;font-size:15px}
+.google-btn.ready{border-color:rgba(60,232,255,.35);box-shadow:0 0 24px rgba(60,232,255,.11)}
+.g{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:white;color:#111;font-weight:800;font-family:Arial}
 .warn{display:none;color:#ffd28a;background:rgba(255,210,138,.08);border:1px solid rgba(255,210,138,.2);border-radius:18px;padding:12px;line-height:1.8;font-size:12px}.warn.show{display:block}.err{min-height:18px;color:var(--red);font-size:12px;line-height:1.7}
-.shell{position:absolute;inset:0;display:grid;grid-template-rows:28px 78px minmax(0,1fr) 92px}
-.status{height:28px;padding:8px 24px 0;display:flex;justify-content:space-between;direction:ltr;font-size:12px;opacity:.9}
-.top{padding:8px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}.mini{display:flex;align-items:center;gap:9px;direction:ltr;font-weight:700}.mini img{width:41px;height:41px;object-fit:contain}.user{display:flex;align-items:center;gap:8px}.avatar{width:42px;height:42px;border-radius:17px;background:linear-gradient(135deg,rgba(60,232,255,.22),rgba(236,92,255,.22));display:grid;place-items:center;border:1px solid var(--line2);font-weight:700}.user b{font-size:13px}.user small{display:block;color:var(--green);font-size:10.5px}
-.icon{width:46px;height:46px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.075);display:grid;place-items:center;font-size:20px}
-.views{position:relative;min-height:0;overflow:hidden}.view{position:absolute;inset:0;display:none;min-height:0;overflow:hidden;padding:0 18px 10px}.view.active{display:grid}.scroll{overflow:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.scroll::-webkit-scrollbar{display:none}
-.home{grid-template-rows:auto auto 1fr;gap:14px}.hero{border-radius:32px;min-height:310px;padding:20px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:-40px;background:radial-gradient(circle at 70% 28%,rgba(60,232,255,.22),transparent 25%),radial-gradient(circle at 20% 76%,rgba(236,92,255,.18),transparent 30%);filter:blur(22px)}.hero>*{position:relative}.hero h2{font-size:36px;line-height:1.25;margin:10px 0 4px}.hero p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}.orb{width:160px;height:160px;display:grid;place-items:center;position:relative;border-radius:50%;margin:auto}.orb img{width:76px;height:76px;z-index:2}.orb:before,.orb:after,.ring{content:"";position:absolute;border-radius:50%}.orb:before{inset:0;border:1px solid rgba(236,92,255,.68);box-shadow:0 0 35px rgba(236,92,255,.2);animation:spin 12s linear infinite}.orb:after{inset:24px;border:1px dashed rgba(255,255,255,.20);animation:spin 13s linear reverse infinite}.ring{inset:8px;border:2px solid rgba(60,232,255,.62);box-shadow:0 0 32px rgba(60,232,255,.25),inset 0 0 30px rgba(124,77,255,.18);animation:pulse 2s ease-in-out infinite}.orb.on .ring{animation:pulse .75s ease-in-out infinite;box-shadow:0 0 55px rgba(60,232,255,.48),0 0 80px rgba(236,92,255,.25)}
+.shell{position:absolute;inset:0;display:grid;grid-template-rows:28px 74px minmax(0,1fr) 88px}
+.status{height:28px;padding:8px 24px 0;display:flex;justify-content:space-between;direction:ltr;font-size:12px;opacity:.92}
+.top{padding:6px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.user{display:flex;align-items:center;gap:8px}.avatar{width:42px;height:42px;border-radius:17px;background:linear-gradient(135deg,rgba(60,232,255,.2),rgba(236,92,255,.24));display:grid;place-items:center;border:1px solid rgba(60,232,255,.26);font-weight:700}.user b{font-size:13px}.user small{display:block;color:var(--green);font-size:10px}
+.mini{display:flex;align-items:center;gap:8px;direction:ltr;font-weight:700}.mini img{width:42px;height:42px;object-fit:contain}.icon{width:45px;height:45px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.075);display:grid;place-items:center;font-size:20px}
+.main{min-height:0;overflow:hidden;position:relative}
+.screen{height:100%;min-height:0;overflow:auto;padding:0 18px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;display:none!important}
+.screen::-webkit-scrollbar{display:none}.screen.active{display:block!important}
+.hero{min-height:305px;border-radius:32px;padding:20px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:-40px;background:radial-gradient(circle at 70% 28%,rgba(60,232,255,.20),transparent 25%),radial-gradient(circle at 20% 76%,rgba(236,92,255,.16),transparent 30%);filter:blur(20px)}.hero>*{position:relative}.hero h2{font-size:36px;line-height:1.25;margin:10px 0 5px}.hero p{font-size:13px;line-height:1.8;color:var(--muted);margin:0}
+.orb{width:158px;height:158px;border-radius:50%;position:relative;display:grid;place-items:center;margin:auto}.orb img{width:82px;height:82px;object-fit:contain;z-index:2}.orb:before,.orb:after{content:"";position:absolute;border-radius:50%}.orb:before{inset:0;border:1px solid rgba(236,92,255,.65);box-shadow:0 0 35px rgba(236,92,255,.18);animation:spin 12s linear infinite}.orb:after{inset:24px;border:1px dashed rgba(255,255,255,.20);animation:spin 13s linear reverse infinite}.ring{position:absolute;inset:8px;border-radius:50%;border:2px solid rgba(60,232,255,.62);box-shadow:0 0 30px rgba(60,232,255,.22),inset 0 0 28px rgba(124,77,255,.18);animation:pulse 2s ease-in-out infinite}.orb.on .ring{animation:pulse .65s ease-in-out infinite;box-shadow:0 0 58px rgba(60,232,255,.45),0 0 80px rgba(236,92,255,.25)}
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{transform:scale(1.08);opacity:.72}}
-.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.q,.btn{min-height:56px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.065);font-weight:700;box-shadow:inset 0 0 22px rgba(255,255,255,.025)}
-.cards{display:grid;gap:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border-radius:28px;background:rgba(255,255,255,.062);border:1px solid var(--line);padding:16px}.stat{min-height:106px;display:grid;align-content:center;gap:6px;text-align:right}.stat b{font-size:34px}.stat span,.muted{color:var(--muted);font-size:13px}.title{display:flex;align-items:center;justify-content:space-between;font-weight:700;margin-bottom:10px}.title span{color:var(--cyan)}.list{display:grid;gap:10px;max-height:340px;overflow:auto;scrollbar-width:none}.list::-webkit-scrollbar{display:none}.item{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.11);line-height:1.65;font-size:13px}.item small{display:block;color:var(--muted)}
-.chat{grid-template-rows:auto minmax(0,1fr) auto;gap:10px}.chat-head{display:flex;align-items:center;gap:10px}.chat-head h2{margin:0;font-size:22px}.chat-head small{color:var(--green)}
-.messages{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:10px 3px 12px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.messages::-webkit-scrollbar{display:none}.msg{display:flex;gap:8px;max-width:88%;align-items:flex-end;animation:in .18s ease}.msg.user{align-self:flex-end;flex-direction:row-reverse}.msg.lia{align-self:flex-start}.micon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid var(--line);flex:0 0 auto}.micon img{width:25px;height:25px}.bubble{padding:13px 15px;border-radius:24px;background:rgba(255,255,255,.073);border:1px solid var(--line);line-height:1.85;font-size:14px}.msg.user .bubble{background:linear-gradient(135deg,rgba(64,140,255,.16),rgba(124,77,255,.26),rgba(236,92,255,.18));border-color:rgba(236,92,255,.28)}.bubble b{display:block;color:var(--cyan);font-size:11px;margin-bottom:3px}.bubble p{margin:0;white-space:pre-wrap}@keyframes in{from{transform:translateY(8px);opacity:0}}
-.composer{height:70px;border:1px solid var(--line2);border-radius:28px;padding:9px;display:grid;grid-template-columns:46px 1fr 48px;gap:8px;background:rgba(255,255,255,.052);box-shadow:0 0 42px rgba(60,232,255,.08),inset 0 0 24px rgba(255,255,255,.025)}.composer textarea{resize:none;border:0;outline:none;background:transparent;color:#fff;padding:12px 4px;line-height:1.6;font-size:14px}.send{border:0;border-radius:18px;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));font-size:20px}.plus{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.07);font-size:27px}
-.voice{align-content:start}.voice-stage{text-align:center;padding:12px 0}.voice-stage h2{font-size:36px;margin:10px 0 2px}.big{width:220px;height:220px;margin:18px auto 12px}.wave{height:88px;margin:12px 0;border-radius:30px;border:1px solid var(--line);background:rgba(255,255,255,.05);display:grid;place-items:center;overflow:hidden}.wave canvas{width:100%;height:88px}.voice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mainv{grid-column:1/-1;height:60px;border:0;border-radius:24px;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));font-weight:700}.panel{display:block}.panel-head{padding:12px 2px 18px}.panel-head h2{font-size:30px;margin:0 0 8px}.panel-head p{margin:0;color:var(--muted);line-height:1.8}.money{font-size:33px;font-weight:700}
-.setting{display:grid;gap:8px;margin-bottom:12px}.setting label{font-weight:700}.setting select,.setting input{height:52px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;padding:0 12px;outline:none}.note{font-size:12px;line-height:1.8;color:var(--muted)}
-.nav{height:92px;padding:8px 13px max(8px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:7px;background:linear-gradient(180deg,transparent,rgba(5,4,20,.80) 18%)}.nav button{border:1px solid transparent;background:rgba(255,255,255,.055);border-radius:22px;display:grid;place-items:center;color:var(--muted);font-size:11px;font-weight:700;gap:3px}.nav i{font-style:normal;font-size:19px}.nav .active{color:#fff;border-color:rgba(60,232,255,.25);background:linear-gradient(135deg,rgba(60,232,255,.15),rgba(124,77,255,.22),rgba(236,92,255,.12))}
-.fab{position:absolute;left:50%;bottom:56px;transform:translateX(-50%);width:72px;height:72px;border-radius:50%;border:1px solid rgba(60,232,255,.32);background:rgba(10,6,32,.80);display:grid;place-items:center;z-index:6;box-shadow:0 0 30px rgba(60,232,255,.26),0 0 40px rgba(236,92,255,.14)}.fab img{width:54px;height:54px}.toast{position:absolute;left:18px;right:18px;bottom:105px;background:rgba(8,8,28,.94);border:1px solid var(--line2);border-radius:22px;padding:13px 16px;box-shadow:var(--shadow);z-index:30;display:none;line-height:1.7;font-size:13px}.toast.show{display:block;animation:in .2s ease}
-@media(max-width:720px){.app{display:block;padding:0}.phone{width:100vw;height:100dvh;max-width:none;border-radius:0;border:0;box-shadow:none}.side-card{display:none!important}.hero{min-height:300px}.hero h2{font-size:34px}}
-@media(min-width:900px){.app{grid-template-columns:1fr auto 1fr;gap:22px}.side-card{display:block;width:min(370px,30vw);border-radius:34px;padding:24px}.side-card h2{font-size:34px;margin:0 0 12px}.side-card p{color:var(--muted);line-height:1.9}.side-card img{width:100px;height:100px;object-fit:contain;filter:drop-shadow(0 0 20px rgba(60,232,255,.45))}}
+.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}.btn,.q{min-height:56px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.065);font-weight:700}
+.cards{display:grid;gap:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.card{border-radius:28px;background:rgba(255,255,255,.062);border:1px solid var(--line);padding:16px}.stat{min-height:106px;display:grid;align-content:center;gap:6px}.stat b{font-size:34px}.stat span,.muted{color:var(--muted);font-size:13px}.title{display:flex;align-items:center;justify-content:space-between;font-weight:700;margin-bottom:10px}.list{display:grid;gap:10px;max-height:340px;overflow:auto;scrollbar-width:none}.list::-webkit-scrollbar{display:none}.item{padding:12px;border-radius:18px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.11);line-height:1.65;font-size:13px}.item small{display:block;color:var(--muted)}
+.chat-screen{height:100%;display:grid!important;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;overflow:hidden!important}.screen:not(.active).chat-screen{display:none!important}
+.chat-head{display:flex;align-items:center;gap:10px}.chat-head h2{margin:0;font-size:22px}.chat-head small{color:var(--green)}
+.messages{min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:10px 2px 12px;display:flex;flex-direction:column;gap:12px;scrollbar-width:none}.messages::-webkit-scrollbar{display:none}
+.msg{display:flex;gap:8px;max-width:89%;align-items:flex-end}.msg.user{align-self:flex-end;flex-direction:row-reverse}.msg.lia{align-self:flex-start}.micon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid var(--line);flex:0 0 auto}.micon img{width:26px;height:26px;object-fit:contain}.bubble{padding:13px 15px;border-radius:24px;background:rgba(255,255,255,.073);border:1px solid var(--line);line-height:1.85;font-size:14px}.msg.user .bubble{background:linear-gradient(135deg,rgba(64,140,255,.16),rgba(124,77,255,.26),rgba(236,92,255,.18));border-color:rgba(236,92,255,.28)}.bubble b{display:block;color:var(--cyan);font-size:11px;margin-bottom:3px}.bubble p{margin:0;white-space:pre-wrap}
+.composer{height:70px;border:1px solid rgba(60,232,255,.27);border-radius:28px;padding:9px;display:grid;grid-template-columns:46px 1fr 48px;gap:8px;background:rgba(255,255,255,.052)}.composer textarea{resize:none;border:0;outline:none;background:transparent;color:#fff;padding:12px 4px;line-height:1.6;font-size:14px}.send{border:0;border-radius:18px;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));font-size:20px}.plus{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.07);font-size:27px}
+.voice-stage{text-align:center;padding-top:10px}.voice-stage h2{font-size:36px;margin:12px 0 2px}.big{width:220px;height:220px;margin:18px auto 12px}.wave{height:88px;margin:12px 0;border-radius:30px;border:1px solid var(--line);background:rgba(255,255,255,.05);display:grid;place-items:center;overflow:hidden}.wave canvas{width:100%;height:88px}.voice-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mainv{grid-column:1/-1;height:60px;border:0;border-radius:24px;background:linear-gradient(135deg,var(--cyan),var(--violet),var(--pink));font-weight:700}
+.panel-head{padding:12px 2px 18px}.panel-head h2{font-size:30px;margin:0 0 8px}.panel-head p,.note{margin:0;color:var(--muted);line-height:1.8;font-size:13px}.money{font-size:33px;font-weight:700}.setting{display:grid;gap:8px;margin-bottom:12px}.setting label{font-weight:700}.setting select,.setting input{height:52px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;padding:0 12px;outline:none}
+.nav{height:88px;padding:8px 13px max(8px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);gap:7px;background:linear-gradient(180deg,transparent,rgba(5,4,20,.82) 18%)}.nav button{border:1px solid transparent;background:rgba(255,255,255,.055);border-radius:22px;display:grid;place-items:center;color:var(--muted);font-size:11px;font-weight:700;gap:3px}.nav i{font-style:normal;font-size:19px}.nav .active{color:#fff;border-color:rgba(60,232,255,.25);background:linear-gradient(135deg,rgba(60,232,255,.15),rgba(124,77,255,.22),rgba(236,92,255,.12))}
+.fab{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);width:72px;height:72px;border-radius:50%;border:1px solid rgba(60,232,255,.32);background:rgba(10,6,32,.84);display:grid;place-items:center;z-index:6;box-shadow:0 0 30px rgba(60,232,255,.26),0 0 40px rgba(236,92,255,.14)}.fab img{width:54px;height:54px}
+.toast{position:absolute;left:18px;right:18px;bottom:105px;background:rgba(8,8,28,.94);border:1px solid rgba(60,232,255,.28);border-radius:22px;padding:13px 16px;z-index:30;display:none;line-height:1.7;font-size:13px}.toast.show{display:block}
+@media(max-width:720px){.app{display:block;padding:0}.phone{width:100vw;height:100dvh;max-width:none;border:0;border-radius:0;box-shadow:none}.hero{min-height:300px}.hero h2{font-size:34px}}
 </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="app">
-  <aside class="side-card glass"><h2>صوت ليا</h2><p>النغمة والتموج من داخل التطبيق. أما الصوت العربي الطبيعي جدًا يحتاج محرك TTS عربي احترافي؛ المتصفح وحده قد يعطي صوتًا آليًا حسب جهازك.</p></aside>
-  <main class="phone">
-    <section id="login" class="login">
-      <img class="logo" src="/assets/lia-mark.png" alt="lia" />
-      <div class="brand">lia<span class="grad">.ai</span></div>
-      <h1>دخول هشام</h1>
-      <p>تسجيل دخول خاص. بياناتك المحلية للمهام والديون والذاكرة محفوظة داخل جهازك.</p>
-      <div class="google-box">
-        <button class="google-btn" id="googleLoginBtn" type="button"><span>متابعة بحساب Google</span><span class="g">G</span></button>
-        <div class="warn" id="googleWarn">حتى يظهر اختيار حسابات Google لازم يكون GOOGLE_CLIENT_ID موجود في Vercel، والدومين مضاف في Google Cloud.</div>
-        <small class="err" id="loginErr"></small>
-      </div>
-    </section>
-    <section id="shell" class="shell hide">
-      <div class="status"><span>9:41</span><span>●●● 5G ▰</span></div>
-      <header class="top">
-        <button class="icon" id="settingsBtn">⚙</button>
-        <div class="mini"><img src="/assets/lia-mark.png" alt="lia"><span>lia.ai</span></div>
-        <div class="user"><div class="avatar">هـ</div><div><b>هشام</b><small id="healthText">متصلة الآن</small></div></div>
-      </header>
-      <section class="views">
-        <div class="view home scroll active" id="homeView">
-          <div class="hero glass">
-            <div>
-              <div class="orb"><span class="ring"></span><img src="/assets/lia-mark.png" alt="lia"></div>
-              <h2>مرحبًا، أنا <span class="grad">ليا</span></h2>
-              <p>مساعدتك الذكية في كل لحظة. اسألني، تكلم صوتيًا، أو قل لي مهمة أو دين وسأرتبها لك.</p>
-            </div>
-          </div>
-          <div class="quick">
-            <button class="q" data-tab="chat">ابدأ محادثة</button>
-            <button class="q" data-tab="voice">تحدث صوتيًا</button>
-            <button class="q" data-prompt="ليا، ذكّريني بموضوع مهم اليوم.">ذكريني</button>
-            <button class="q" data-tab="tasks">المهام</button>
-            <button class="q" data-tab="memory">المذكرات</button>
-            <button class="q" data-tab="finance">الديون</button>
-          </div>
-          <div class="cards">
-            <div class="stats">
-              <div class="card stat"><span>المهام</span><b id="homeTasks">0</b></div>
-              <div class="card stat"><span>الديون</span><b id="homeFinance">0</b></div>
-              <div class="card stat"><span>الذاكرة</span><b id="homeMemory">0</b></div>
-            </div>
-            <div class="card"><div class="title">مهام اليوم <span>▣</span></div><div class="list" id="homeTaskList"></div></div>
-            <div class="card"><div class="title">الديون والمدفوعات <span>◈</span></div><div class="money" id="homeMoney">0 ر.ي</div><p class="note">قل: "سحبت دين من البقالة 3000" وسأضيفها تلقائيًا.</p></div>
-          </div>
-        </div>
-        <div class="view chat" id="chatView">
-          <div class="chat-head"><button class="icon" data-tab="home">‹</button><div><h2>محادثة مع ليا</h2><small>تمرير ناعم مثل تطبيقات المحادثة</small></div></div>
-          <div class="messages" id="messages"></div>
-          <form class="composer" id="chatForm"><button class="plus" type="button" id="plusBtn">+</button><textarea id="messageInput" rows="1" placeholder="اكتب رسالتك أو اضغط صوت وتكلم مع ليا..."></textarea><button class="send" type="submit">➤</button></form>
-        </div>
-        <div class="view voice scroll" id="voiceView">
-          <div class="voice-stage">
-            <div class="orb big" id="voiceOrb"><span class="ring"></span><img src="/assets/lia-mark.png" alt="lia"></div>
-            <h2><span class="grad">ليا تستمع</span></h2><p class="muted" id="voiceStatus">اضغط بدء الاستماع وتكلم طبيعيًا.</p>
-            <div class="wave"><canvas id="waveCanvas"></canvas></div>
-            <div class="voice-actions"><button class="mainv" id="startVoiceBtn">ابدأ الاستماع</button><button class="btn" id="stopVoiceBtn">إيقاف</button><button class="btn" id="readLastBtn">قراءة آخر رد</button></div>
-            <p class="note">إذا كان صوت القراءة يبدو أجنبيًا، فهذا من صوت النظام في جهازك. لاحقًا نربط TTS عربي احترافي.</p>
-          </div>
-        </div>
-        <div class="view panel scroll" id="tasksView"><div class="panel-head"><h2>المهام</h2><p>تضاف تلقائيًا عندما تقول: عندي مهمة، ذكريني، الساعة، موعد...</p></div><div class="card"><div class="title">قائمة المهام <button class="btn" id="clearTasks">مسح</button></div><div class="list" id="tasksList"></div></div></div>
-        <div class="view panel scroll" id="financeView"><div class="panel-head"><h2>الديون والمدفوعات</h2><p>مدين، دائن، بقالة، مصاريف يومية، التزامات، وتجار.</p></div><div class="card"><div class="title">الإجمالي المسجل <span>◈</span></div><div class="money" id="financeTotal">0 ر.ي</div><p class="note" id="financeAnalysis">سجل مصروف أو دين وسأحلله لك.</p></div><br><div class="card"><div class="title">الحركات <button class="btn" id="clearFinance">مسح</button></div><div class="list" id="financeList"></div></div></div>
-        <div class="view panel scroll" id="memoryView"><div class="panel-head"><h2>الذاكرة والمذكرات</h2><p>أفكار، قرارات، ملاحظات، وتفضيلات تحفظ محليًا.</p></div><div class="card"><div class="title">ذاكرة ليا <button class="btn" id="clearMemory">مسح</button></div><div class="list" id="memoryList"></div></div></div>
-        <div class="view panel scroll" id="settingsView"><div class="panel-head"><h2>إعدادات ليا</h2><p>الصوت، اللهجة، الخصوصية، وتثبيت التطبيق.</p></div><div class="card"><div class="setting"><label>أسلوب ليا</label><select id="toneSelect"><option value="yemeni-soft">عربية بيضاء مع لمسة يمنية خفيفة</option><option value="warm">دافئة وقريبة</option><option value="business">إدارية مختصرة</option><option value="fusha">فصحى راقية</option></select></div><div class="setting"><label>لغة الاستماع</label><select id="voiceLang"><option value="ar-YE">عربي يمني إن توفر</option><option value="ar-SA">عربي سعودي</option><option value="ar">عربي عام</option><option value="en-US">English</option></select></div><div class="setting"><label>صوت القراءة</label><select id="voiceSelect"><option value="">فحص الأصوات...</option></select><p class="note" id="voiceNote"></p></div><button class="btn" id="installBtn">تثبيت كتطبيق على الهاتف</button><br><br><button class="btn" id="wipeBtn">مسح بيانات ليا المحلية</button><br><br><button class="btn" id="logoutBtn">تسجيل خروج</button></div></div>
-      </section>
-      <button class="fab" id="fab"><img src="/assets/lia-mark.png" alt="lia"></button>
-      <nav class="nav"><button class="active" data-tab="home"><i>⌂</i><span>الرئيسية</span></button><button data-tab="chat"><i>◇</i><span>محادثة</span></button><button data-tab="voice"><i>◉</i><span>صوت</span></button><button data-tab="tasks"><i>✓</i><span>المهام</span></button><button data-tab="finance"><i>◈</i><span>الديون</span></button></nav>
-    </section>
-    <div class="toast" id="toast"></div>
-  </main>
-  <aside class="side-card glass"><img src="/assets/lia-mark.png"><h2><span class="grad">lia.ai</span></h2><p>واجهة ليا الجديدة للهاتف أولًا: محادثة سلسة، صوت بتموج حي، مهام وديون وذاكرة محلية لهشام.</p></aside>
+<main class="phone">
+<section id="login" class="login">
+<img class="logo" src="/assets/lia-mark.png" alt="lia">
+<div class="brand">lia<span class="grad">.ai</span></div>
+<h1>دخول هشام</h1>
+<p>تسجيل دخول خاص. بياناتك المحلية للمهام والديون والذاكرة محفوظة داخل جهازك.</p>
+<button class="google-btn" id="googleLoginBtn" type="button"><span>متابعة بحساب Google</span><span class="g">G</span></button>
+<div class="warn" id="googleWarn">GOOGLE_CLIENT_ID غير جاهز أو الدومين غير مضاف في Google Cloud.</div>
+<small class="err" id="loginErr"></small>
+</section>
+
+<section id="shell" class="shell hide">
+<div class="status"><span>9:41</span><span>●●● 5G ▰</span></div>
+<header class="top">
+<button class="icon" id="settingsBtn">⚙</button>
+<div class="mini"><img src="/assets/lia-mark.png" alt="lia"><span>lia.ai</span></div>
+<div class="user"><div class="avatar">هـ</div><div><b>هشام</b><small id="healthText">متصلة الآن</small></div></div>
+</header>
+
+<div class="main">
+<section class="screen active" data-screen="home" id="homeScreen">
+<div class="hero glass"><div><div class="orb"><span class="ring"></span><img src="/assets/lia-mark.png" alt="lia"></div><h2>مرحبًا، أنا <span class="grad">ليا</span></h2><p>مساعدتك الذكية في كل لحظة. اسألني، تكلم صوتيًا، أو قل لي مهمة أو دين وسأرتبها لك.</p></div></div>
+<div class="quick">
+<button class="q" data-go="chat">ابدأ محادثة</button><button class="q" data-go="voice">تحدث صوتيًا</button><button class="q" data-prompt="ليا، ذكّريني بموضوع مهم اليوم.">ذكريني</button><button class="q" data-go="tasks">المهام</button><button class="q" data-go="memory">المذكرات</button><button class="q" data-go="finance">الديون</button>
 </div>
+<div class="cards">
+<div class="stats"><div class="card stat"><span>المهام</span><b id="homeTasks">0</b></div><div class="card stat"><span>الديون</span><b id="homeFinance">0</b></div><div class="card stat"><span>الذاكرة</span><b id="homeMemory">0</b></div></div>
+<div class="card"><div class="title">مهام اليوم <span>▣</span></div><div class="list" id="homeTaskList"></div></div>
+<div class="card"><div class="title">الديون والمدفوعات <span>◈</span></div><div class="money" id="homeMoney">0 ر.ي</div><p class="note">قل: "سحبت دين من البقالة 3000" وسأضيفها تلقائيًا.</p></div>
+</div>
+</section>
+
+<section class="screen chat-screen" data-screen="chat" id="chatScreen">
+<div class="chat-head"><button class="icon" data-go="home">‹</button><div><h2>محادثة مع ليا</h2><small>تمرير ناعم مثل تطبيقات المحادثة</small></div></div>
+<div class="messages" id="messages"></div>
+<form class="composer" id="chatForm"><button class="plus" type="button" id="plusBtn">+</button><textarea id="messageInput" rows="1" placeholder="اكتب رسالتك أو اضغط صوت وتكلم مع ليا..."></textarea><button class="send" type="submit">➤</button></form>
+</section>
+
+<section class="screen" data-screen="voice" id="voiceScreen">
+<div class="voice-stage">
+<div class="orb big" id="voiceOrb"><span class="ring"></span><img src="/assets/lia-mark.png" alt="lia"></div>
+<h2><span class="grad">ليا تستمع</span></h2><p class="muted" id="voiceStatus">اضغط بدء الاستماع وتكلم طبيعيًا.</p>
+<div class="wave"><canvas id="waveCanvas"></canvas></div>
+<div class="voice-actions"><button class="mainv" id="startVoiceBtn">ابدأ الاستماع</button><button class="btn" id="stopVoiceBtn">إيقاف</button><button class="btn" id="readLastBtn">قراءة آخر رد</button></div>
+<p class="note">إذا كان صوت القراءة يبدو أجنبيًا، فهذا من صوت النظام في جهازك. لاحقًا نربط TTS عربي احترافي.</p>
+</div>
+</section>
+
+<section class="screen" data-screen="tasks" id="tasksScreen"><div class="panel-head"><h2>المهام</h2><p>تضاف تلقائيًا عندما تقول: عندي مهمة، ذكريني، الساعة، موعد...</p></div><div class="card"><div class="title">قائمة المهام <button class="btn" id="clearTasks">مسح</button></div><div class="list" id="tasksList"></div></div></section>
+<section class="screen" data-screen="finance" id="financeScreen"><div class="panel-head"><h2>الديون والمدفوعات</h2><p>مدين، دائن، بقالة، مصاريف يومية، التزامات، وتجار.</p></div><div class="card"><div class="title">الإجمالي المسجل <span>◈</span></div><div class="money" id="financeTotal">0 ر.ي</div><p class="note" id="financeAnalysis">سجل مصروف أو دين وسأحلله لك.</p></div><br><div class="card"><div class="title">الحركات <button class="btn" id="clearFinance">مسح</button></div><div class="list" id="financeList"></div></div></section>
+<section class="screen" data-screen="memory" id="memoryScreen"><div class="panel-head"><h2>الذاكرة والمذكرات</h2><p>أفكار، قرارات، ملاحظات، وتفضيلات تحفظ محليًا.</p></div><div class="card"><div class="title">ذاكرة ليا <button class="btn" id="clearMemory">مسح</button></div><div class="list" id="memoryList"></div></div></section>
+<section class="screen" data-screen="settings" id="settingsScreen"><div class="panel-head"><h2>إعدادات ليا</h2><p>الصوت، اللهجة، الخصوصية، وتثبيت التطبيق.</p></div><div class="card"><div class="setting"><label>أسلوب ليا</label><select id="toneSelect"><option value="yemeni-soft">عربية بيضاء مع لمسة يمنية خفيفة</option><option value="warm">دافئة وقريبة</option><option value="business">إدارية مختصرة</option><option value="fusha">فصحى راقية</option></select></div><div class="setting"><label>لغة الاستماع</label><select id="voiceLang"><option value="ar-YE">عربي يمني إن توفر</option><option value="ar-SA">عربي سعودي</option><option value="ar">عربي عام</option><option value="en-US">English</option></select></div><div class="setting"><label>صوت القراءة</label><select id="voiceSelect"><option value="">فحص الأصوات...</option></select><p class="note" id="voiceNote"></p></div><button class="btn" id="installBtn">تثبيت كتطبيق على الهاتف</button><br><br><button class="btn" id="wipeBtn">مسح بيانات ليا المحلية</button><br><br><button class="btn" id="logoutBtn">تسجيل خروج</button></div></section>
+</div>
+
+<button class="fab" id="fab"><img src="/assets/lia-mark.png" alt="lia"></button>
+<nav class="nav"><button class="active" data-go="home"><i>⌂</i><span>الرئيسية</span></button><button data-go="chat"><i>◇</i><span>محادثة</span></button><button data-go="voice"><i>◉</i><span>صوت</span></button><button data-go="tasks"><i>✓</i><span>المهام</span></button><button data-go="finance"><i>◈</i><span>الديون</span></button></nav>
+</section>
+<div class="toast" id="toast"></div>
+</main>
+</div>
+
 <script>
-const $ = (id)=>document.getElementById(id);
+"use strict";
+const $=id=>document.getElementById(id);
 const mark="/assets/lia-mark.png";
-const state={chat:JSON.parse(localStorage.getItem("lia_chat")||"[]"),tasks:JSON.parse(localStorage.getItem("lia_tasks")||"[]"),finance:JSON.parse(localStorage.getItem("lia_finance")||"[]"),memory:JSON.parse(localStorage.getItem("lia_memory")||"[]"),settings:JSON.parse(localStorage.getItem("lia_settings")||'{"tone":"yemeni-soft","voiceLang":"ar","voice":""}')};
-let googleConfig=null, googleTokenClient=null, lastReply="", recognition=null, listening=false, waveRAF=0, deferredPrompt=null, audioCtx=null;
+const state={
+  chat:JSON.parse(localStorage.getItem("lia_chat")||"[]"),
+  tasks:JSON.parse(localStorage.getItem("lia_tasks")||"[]"),
+  finance:JSON.parse(localStorage.getItem("lia_finance")||"[]"),
+  memory:JSON.parse(localStorage.getItem("lia_memory")||"[]"),
+  settings:JSON.parse(localStorage.getItem("lia_settings")||'{"tone":"yemeni-soft","voiceLang":"ar","voice":""}')
+};
+let googleConfig=null,googleTokenClient=null,lastReply="",recognition=null,waveRAF=0,deferredPrompt=null,audioCtx=null;
 function save(){localStorage.setItem("lia_chat",JSON.stringify(state.chat.slice(-80)));localStorage.setItem("lia_tasks",JSON.stringify(state.tasks));localStorage.setItem("lia_finance",JSON.stringify(state.finance));localStorage.setItem("lia_memory",JSON.stringify(state.memory));localStorage.setItem("lia_settings",JSON.stringify(state.settings))}
 function esc(v){return String(v??"").replace(/[&<>]/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[s]))}
 function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),3200)}
-async function authCheck(){try{const r=await fetch("/api/auth-check");const d=await r.json();d.loggedIn?showApp():showLogin()}catch(e){showLogin()}}
+async function authCheck(){try{const r=await fetch("/api/auth-check?t="+Date.now());const d=await r.json();d.loggedIn?showApp():showLogin()}catch(e){showLogin()}}
 function showLogin(){$("login").classList.remove("hide");$("shell").classList.add("hide")}
-function showApp(){$("login").classList.add("hide");$("shell").classList.remove("hide");checkHealth();renderAll();renderChat();startWave(false)}
+function showApp(){$("login").classList.add("hide");$("shell").classList.remove("hide");checkHealth();renderAll();renderChat();go("home")}
 async function loadGoogleConfig(){try{const r=await fetch("/api/config?t="+Date.now());googleConfig=await r.json();return googleConfig}catch(e){googleConfig={googleClientId:"",googleReady:false};return googleConfig}}
 function waitGoogle(n=0){if(window.google?.accounts?.oauth2)return Promise.resolve(true);if(n>45)return Promise.resolve(false);return new Promise(res=>setTimeout(()=>res(waitGoogle(n+1)),150))}
-async function initGoogleLogin(){const btn=$("googleLoginBtn"), warn=$("googleWarn"); const cfg=await loadGoogleConfig(); if(!cfg.googleClientId){warn.classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID لم يصل للتطبيق بعد.";return} const ok=await waitGoogle(); if(!ok){$("loginErr").textContent="مكتبة Google لم تحمل. جرّب تحديث الصفحة أو Chrome.";return} googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:cfg.googleClientId,scope:"openid email profile",prompt:"select_account",callback:handleGoogleToken,error_callback:(err)=>{$("loginErr").textContent=err?.type==="popup_closed"?"أغلقت نافذة Google قبل إكمال الدخول.":"تعذر فتح نافذة Google، تأكد أن المتصفح لا يمنع النوافذ المنبثقة."}}); btn.classList.add("ready");$("loginErr").textContent=""}
-async function handleGoogleToken(resp){if(!resp||resp.error){$("loginErr").textContent=resp?.error_description||"فشل اختيار حساب Google.";return} try{const r=await fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accessToken:resp.access_token})}); const d=await r.json().catch(()=>({})); if(r.ok&&d.ok){localStorage.setItem("lia_email",d.email||"");playChime();showApp();return} $("loginErr").textContent=d.error||"هذا الحساب غير مصرح له بالدخول."}catch(e){$("loginErr").textContent="تعذر الاتصال أثناء تسجيل Google."}}
-$("googleLoginBtn").addEventListener("click",()=>{if(!googleConfig?.googleClientId){$("googleWarn").classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID غير جاهز.";loadGoogleConfig();return} if(!googleTokenClient){$("loginErr").textContent="Google لم يجهز بعد. انتظر ثانيتين وجرب.";initGoogleLogin();return} googleTokenClient.requestAccessToken({prompt:"select_account"})});
-$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});showLogin()};
-function switchTab(tab){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));$(tab+"View")?.classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab)); if(tab==="voice")startWave(true);else startWave(false)}
-document.querySelectorAll("[data-tab]").forEach(el=>el.addEventListener("click",()=>switchTab(el.dataset.tab)));
-$("settingsBtn").onclick=()=>switchTab("settings");$("fab").onclick=()=>{switchTab("voice");playChime()};
-document.querySelectorAll("[data-prompt]").forEach(el=>el.onclick=()=>{switchTab("chat");$("messageInput").value=el.dataset.prompt;$("messageInput").focus()});
+async function initGoogleLogin(){const btn=$("googleLoginBtn"),warn=$("googleWarn");const cfg=await loadGoogleConfig();if(!cfg.googleClientId){warn.classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID لم يصل للتطبيق بعد.";return}const ok=await waitGoogle();if(!ok){$("loginErr").textContent="مكتبة Google لم تحمل. جرّب تحديث الصفحة أو Chrome.";return}googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:cfg.googleClientId,scope:"openid email profile",prompt:"select_account",callback:handleGoogleToken,error_callback:err=>{$("loginErr").textContent=err?.type==="popup_closed"?"أغلقت نافذة Google قبل إكمال الدخول.":"تعذر فتح نافذة Google. تأكد أن المتصفح لا يمنع النوافذ المنبثقة."}});btn.classList.add("ready");$("loginErr").textContent=""}
+async function handleGoogleToken(resp){if(!resp||resp.error){$("loginErr").textContent=resp?.error_description||"فشل اختيار حساب Google.";return}try{const r=await fetch("/api/google-login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({accessToken:resp.access_token})});const d=await r.json().catch(()=>({}));if(r.ok&&d.ok){playChime();showApp();return}$("loginErr").textContent=d.error||"هذا الحساب غير مصرح له بالدخول."}catch(e){$("loginErr").textContent="تعذر الاتصال أثناء تسجيل Google."}}
+$("googleLoginBtn").onclick=()=>{if(!googleConfig?.googleClientId){$("googleWarn").classList.add("show");$("loginErr").textContent="GOOGLE_CLIENT_ID غير جاهز.";loadGoogleConfig();return}if(!googleTokenClient){$("loginErr").textContent="Google لم يجهز بعد. انتظر ثانيتين وجرب.";initGoogleLogin();return}googleTokenClient.requestAccessToken({prompt:"select_account"})};
+function go(name){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("active",s.dataset.screen===name));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.go===name));if(name==="voice")startWave(true);else startWave(false)}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("settingsBtn").onclick=()=>go("settings");$("fab").onclick=()=>{go("voice");playChime()};
+document.querySelectorAll("[data-prompt]").forEach(el=>el.onclick=()=>{go("chat");$("messageInput").value=el.dataset.prompt;$("messageInput").focus()});
 function addMsg(role,text,skip=false){const wrap=document.createElement("div");wrap.className="msg "+(role==="user"?"user":"lia");wrap.innerHTML=`<div class="micon">${role==="user"?"هـ":`<img src="${mark}" alt="lia">`}</div><div class="bubble"><b>${role==="user"?"هشام":"ليا"}</b><p>${esc(text)}</p></div>`;$("messages").appendChild(wrap);$("messages").scrollTop=$("messages").scrollHeight;if(!skip){state.chat.push({role:role==="user"?"user":"assistant",text});save()}if(role!=="user")lastReply=text}
-function renderChat(){$("messages").innerHTML=""; if(!state.chat.length)addMsg("lia","أنا جاهزة يا هشام. تكلم معي طبيعيًا، وسأرتب لك المهام والديون والملاحظات تلقائيًا.",true); else state.chat.forEach(m=>addMsg(m.role==="user"?"user":"lia",m.text,true))}
+function renderChat(){$("messages").innerHTML="";if(!state.chat.length)addMsg("lia","أنا جاهزة يا هشام. تكلم معي طبيعيًا، وسأرتب لك المهام والديون والملاحظات تلقائيًا.",true);else state.chat.forEach(m=>addMsg(m.role==="user"?"user":"lia",m.text,true))}
 function norm(t){return String(t).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d))}
 function amount(t){const m=norm(t).match(/(\d[\d,. ]*)/);return m?Number(m[1].replace(/[,. ]/g,"")):0}
 function timeFrom(t){const m=norm(t).match(/(?:الساعة|ساعه|موعد|وقت)\s*([0-9]{1,2})(?::([0-9]{2}))?\s*(مساء|صباح|م|ص)?/i);return m?m[0]:"غير محدد"}
 function moneyCat(t){if(/بقال|دكان|سوبر/.test(t))return"بقالة";if(/تاجر|عميل/.test(t))return"تجار/عملاء";if(/ايجار|كهرب|ماء|نت|انترنت|اشتراك/.test(t))return"التزامات";if(/قرض|سلف/.test(t))return"قرض";return"عام"}
-function detect(t){const a=[]; if(/مهمة|مهمه|ذكّر|ذكر|موعد|الساعة|ساعه|تابع|اجتماع/.test(t))a.push({type:"task",title:t,time:timeFrom(t),createdAt:new Date().toISOString()}); if(/دين|مدين|دائن|بقال|سحبت|تسلف|تسلفت|مصروف|اشتريت|دفعت/.test(t))a.push({type:"finance",title:t,amount:amount(t),category:moneyCat(t),createdAt:new Date().toISOString()}); if(/ملاحظة|ملاحظه|فكرة|قرار|احفظي|تذكري/.test(t))a.push({type:"memory",title:t,createdAt:new Date().toISOString()}); return a}
-function applyActs(a){for(const x of a){if(x.type==="task")state.tasks.unshift(x); if(x.type==="finance")state.finance.unshift(x); if(x.type==="memory")state.memory.unshift(x)} if(a.length){save();renderAll();toast("تم حفظ ما فهمته ليا تلقائيًا.")}}
-function confirmText(a){if(!a.length)return"";const p=[];if(a.some(x=>x.type==="task"))p.push("حفظت المهمة في قائمة المهام");if(a.some(x=>x.type==="finance"))p.push("سجلت الحركة في الديون والمصاريف");if(a.some(x=>x.type==="memory"))p.push("حفظت الملاحظة في الذاكرة");return"تمام يا هشام، "+p.join("، ")+ "."}
-async function askLia(message){const acts=detect(message);applyActs(acts);const waiting=document.createElement("div");waiting.className="msg lia";waiting.innerHTML=`<div class="micon"><img src="${mark}"></div><div class="bubble"><b>ليا</b><p>أفكر...</p></div>`;$("messages").appendChild(waiting);$("messages").scrollTop=$("messages").scrollHeight;try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,history:state.chat.slice(-12),profile:{owner:"هشام",tone:state.settings.tone},localContext:{tasks:state.tasks.slice(0,10),finance:state.finance.slice(0,10),memory:state.memory.slice(0,10),detectedActions:acts}})}); if(r.status===401){showLogin();return} const d=await r.json();waiting.remove();const c=confirmText(acts);addMsg("lia",(c?c+"\n\n":"")+(d.reply||"وصلني طلبك يا هشام."))}catch(e){waiting.remove();addMsg("lia",(confirmText(acts)||"حصل خلل اتصال مؤقت يا هشام.")+"\n"+e.message)}}
-$("chatForm").addEventListener("submit",e=>{e.preventDefault();const m=$("messageInput").value.trim();if(!m)return;addMsg("user",m);$("messageInput").value="";askLia(m)});
-$("plusBtn").onclick=()=>toast("قريبًا: إضافة صور وملفات وملاحظات مباشرة.");
+function detect(t){const a=[];if(/مهمة|مهمه|ذكّر|ذكر|موعد|الساعة|ساعه|تابع|اجتماع/.test(t))a.push({type:"task",title:t,time:timeFrom(t),createdAt:new Date().toISOString()});if(/دين|مدين|دائن|بقال|سحبت|تسلف|تسلفت|مصروف|اشتريت|دفعت/.test(t))a.push({type:"finance",title:t,amount:amount(t),category:moneyCat(t),createdAt:new Date().toISOString()});if(/ملاحظة|ملاحظه|فكرة|قرار|احفظي|تذكري/.test(t))a.push({type:"memory",title:t,createdAt:new Date().toISOString()});return a}
+function applyActs(a){for(const x of a){if(x.type==="task")state.tasks.unshift(x);if(x.type==="finance")state.finance.unshift(x);if(x.type==="memory")state.memory.unshift(x)}if(a.length){save();renderAll();toast("تم حفظ ما فهمته ليا تلقائيًا.")}}
+function confirmText(a){if(!a.length)return"";const p=[];if(a.some(x=>x.type==="task"))p.push("حفظت المهمة");if(a.some(x=>x.type==="finance"))p.push("سجلت الحركة المالية");if(a.some(x=>x.type==="memory"))p.push("حفظت الملاحظة");return"تمام يا هشام، "+p.join("، ")+ "."}
+async function askLia(message){const acts=detect(message);applyActs(acts);const waiting=document.createElement("div");waiting.className="msg lia";waiting.innerHTML=`<div class="micon"><img src="${mark}"></div><div class="bubble"><b>ليا</b><p>أفكر...</p></div>`;$("messages").appendChild(waiting);$("messages").scrollTop=$("messages").scrollHeight;try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,history:state.chat.slice(-12),profile:{owner:"هشام",tone:state.settings.tone},localContext:{tasks:state.tasks.slice(0,10),finance:state.finance.slice(0,10),memory:state.memory.slice(0,10),detectedActions:acts}})});if(r.status===401){showLogin();return}const d=await r.json();waiting.remove();const c=confirmText(acts);addMsg("lia",(c?c+"\\n\\n":"")+(d.reply||"وصلني طلبك يا هشام."))}catch(e){waiting.remove();addMsg("lia",(confirmText(acts)||"حصل خلل اتصال مؤقت يا هشام.")+"\\n"+e.message)}}
+$("chatForm").onsubmit=e=>{e.preventDefault();const m=$("messageInput").value.trim();if(!m)return;addMsg("user",m);$("messageInput").value="";askLia(m)};$("plusBtn").onclick=()=>toast("قريبًا: إضافة صور وملفات وملاحظات مباشرة.");
 function item(x){return`<div class="item"><b>${esc(x.title)}</b><small>${new Date(x.createdAt).toLocaleString("ar-YE")}${x.time?" • "+esc(x.time):""}${x.amount?" • "+Number(x.amount).toLocaleString("ar-YE")+" ر.ي":""}${x.category?" • "+esc(x.category):""}</small></div>`}
 function renderList(id,arr,empty){$(id).innerHTML=arr.length?arr.map(item).join(""):`<div class="item"><b>${empty}</b><small>تكلم مع ليا وستضيفها هنا تلقائيًا.</small></div>`}
 function total(){return state.finance.reduce((s,x)=>s+(Number(x.amount)||0),0)}
 function renderAll(){$("homeTasks").textContent=state.tasks.length;$("homeFinance").textContent=state.finance.length;$("homeMemory").textContent=state.memory.length;$("homeMoney").textContent=total().toLocaleString("ar-YE")+" ر.ي";$("financeTotal").textContent=total().toLocaleString("ar-YE")+" ر.ي";$("financeAnalysis").textContent=total()?`لو كان هذا صرفًا يوميًا فالشهر قد يصل تقريبًا إلى ${(total()*30).toLocaleString("ar-YE")} ر.ي.`:"سجل مصروف أو دين وسأحلله لك.";renderList("homeTaskList",state.tasks.slice(0,3),"لا توجد مهام اليوم");renderList("tasksList",state.tasks,"لا توجد مهام محفوظة");renderList("financeList",state.finance,"لا توجد حركات مالية");renderList("memoryList",state.memory,"لا توجد مذكرات")}
-$("clearTasks").onclick=()=>{state.tasks=[];save();renderAll()};$("clearFinance").onclick=()=>{state.finance=[];save();renderAll()};$("clearMemory").onclick=()=>{state.memory=[];save();renderAll()};$("wipeBtn").onclick=()=>{if(confirm("مسح بيانات ليا المحلية من هذا الجهاز؟")){localStorage.clear();location.reload()}};
-async function checkHealth(){try{const r=await fetch("/api/health");const d=await r.json();$("healthText").textContent=d.hasGeminiKey?`${d.model||"Gemini"} • متصلة`:"مفتاح Gemini غير ظاهر"}catch{$("healthText").textContent="غير متصلة"}}
+$("clearTasks").onclick=()=>{state.tasks=[];save();renderAll()};$("clearFinance").onclick=()=>{state.finance=[];save();renderAll()};$("clearMemory").onclick=()=>{state.memory=[];save();renderAll()};$("wipeBtn").onclick=()=>{if(confirm("مسح بيانات ليا المحلية من هذا الجهاز؟")){localStorage.clear();location.reload()}};$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});showLogin()};
+async function checkHealth(){try{const r=await fetch("/api/health?t="+Date.now());const d=await r.json();$("healthText").textContent=d.hasGeminiKey?`${d.model||"Gemini"} • متصلة`:"مفتاح Gemini غير ظاهر"}catch{$("healthText").textContent="غير متصلة"}}
 function playChime(){try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();const now=audioCtx.currentTime;[660,880,1174].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=f;g.gain.setValueAtTime(0,now+i*.06);g.gain.linearRampToValueAtTime(.06,now+i*.06+.02);g.gain.exponentialRampToValueAtTime(.001,now+i*.06+.23);o.connect(g).connect(audioCtx.destination);o.start(now+i*.06);o.stop(now+i*.06+.25)})}catch(e){}}
-function getVoices(){return speechSynthesis?.getVoices?.()||[]}function loadVoices(){const voices=getVoices(), ar=voices.filter(v=>/^ar/i.test(v.lang));$("voiceSelect").innerHTML=`<option value="">بدون قراءة آلية / اختر صوت</option>`+ar.map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("")+voices.filter(v=>!/^ar/i.test(v.lang)).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("");$("voiceSelect").value=state.settings.voice||"";$("voiceNote").textContent=ar.length?`تم العثور على ${ar.length} صوت عربي. اختر الأهدأ.`:"لا يوجد صوت عربي جيد ظاهر في هذا المتصفح."}
+function getVoices(){return speechSynthesis?.getVoices?.()||[]}function loadVoices(){const voices=getVoices(),ar=voices.filter(v=>/^ar/i.test(v.lang));$("voiceSelect").innerHTML=`<option value="">بدون قراءة آلية / اختر صوت</option>`+ar.map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("")+voices.filter(v=>!/^ar/i.test(v.lang)).map(v=>`<option value="${esc(v.name)}">${esc(v.name)} — ${esc(v.lang)}</option>`).join("");$("voiceSelect").value=state.settings.voice||"";$("voiceNote").textContent=ar.length?`تم العثور على ${ar.length} صوت عربي. اختر الأهدأ.`:"لا يوجد صوت عربي جيد ظاهر في هذا المتصفح."}
 if("speechSynthesis"in window){speechSynthesis.onvoiceschanged=loadVoices;setTimeout(loadVoices,300);setTimeout(loadVoices,1200)}
 $("voiceSelect").onchange=e=>{state.settings.voice=e.target.value;save()};$("toneSelect").value=state.settings.tone;$("toneSelect").onchange=e=>{state.settings.tone=e.target.value;save()};$("voiceLang").value=state.settings.voiceLang;$("voiceLang").onchange=e=>{state.settings.voiceLang=e.target.value;save()};
 function speak(text){const v=getVoices().find(v=>v.name===state.settings.voice);if(!v)return toast("اختر صوتًا عربيًا من الإعدادات أولًا.");const u=new SpeechSynthesisUtterance(text);u.voice=v;u.lang=v.lang||"ar";u.rate=.9;u.pitch=1.02;speechSynthesis.cancel();speechSynthesis.speak(u)}
 $("readLastBtn").onclick=()=>speak(lastReply||"أنا جاهزة يا هشام.");
-function startVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("التعرف الصوتي غير مدعوم هنا. جرّب Chrome على Android.");playChime();listening=true;startWave(true);$("voiceOrb").classList.add("on");$("voiceStatus").textContent="أسمعك يا هشام...";recognition=new SR();recognition.lang=state.settings.voiceLang||"ar";recognition.interimResults=false;recognition.continuous=false;recognition.onresult=e=>{const t=e.results[0][0].transcript;$("voiceStatus").textContent="سمعت: "+t;switchTab("chat");addMsg("user",t);askLia(t)};recognition.onerror=e=>{$("voiceStatus").textContent="تعذر الاستماع: "+e.error;listening=false;startWave(false)};recognition.onend=()=>{listening=false;$("voiceOrb").classList.remove("on");startWave(false)};recognition.start()}
-$("startVoiceBtn").onclick=startVoice;$("stopVoiceBtn").onclick=()=>{try{recognition&&recognition.stop()}catch(e){}listening=false;startWave(false);$("voiceStatus").textContent="تم الإيقاف."};
-function startWave(active){cancelAnimationFrame(waveRAF);const c=$("waveCanvas");if(!c)return;const ctx=c.getContext("2d");function resize(){const r=c.getBoundingClientRect();c.width=Math.max(300,r.width*devicePixelRatio);c.height=Math.max(80,r.height*devicePixelRatio)}resize();let t=0;function draw(){t+=.035;const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,"#3ce8ff");g.addColorStop(.55,"#7c4dff");g.addColorStop(1,"#ec5cff");ctx.lineWidth=3*devicePixelRatio;ctx.strokeStyle=g;ctx.beginPath();for(let x=0;x<w;x+=4*devicePixelRatio){const n=active?(Math.sin(x*.017+t*3)+Math.sin(x*.033-t*1.7))*.5:Math.sin(x*.012+t)*.25;const amp=active?h*.26:h*.12;const y=h/2+n*amp*Math.sin((x/w)*Math.PI);if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();waveRAF=requestAnimationFrame(draw)}draw()}
+function startVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast("التعرف الصوتي غير مدعوم هنا. جرّب Chrome على Android.");playChime();startWave(true);$("voiceOrb").classList.add("on");$("voiceStatus").textContent="أسمعك يا هشام...";recognition=new SR();recognition.lang=state.settings.voiceLang||"ar";recognition.interimResults=false;recognition.continuous=false;recognition.onresult=e=>{const t=e.results[0][0].transcript;$("voiceStatus").textContent="سمعت: "+t;go("chat");addMsg("user",t);askLia(t)};recognition.onerror=e=>{$("voiceStatus").textContent="تعذر الاستماع: "+e.error;startWave(false)};recognition.onend=()=>{$("voiceOrb").classList.remove("on");startWave(false)};recognition.start()}
+$("startVoiceBtn").onclick=startVoice;$("stopVoiceBtn").onclick=()=>{try{recognition&&recognition.stop()}catch(e){}startWave(false);$("voiceStatus").textContent="تم الإيقاف."};
+function startWave(active){cancelAnimationFrame(waveRAF);const c=$("waveCanvas");if(!c)return;const ctx=c.getContext("2d");function resize(){const r=c.getBoundingClientRect();c.width=Math.max(300,r.width*devicePixelRatio);c.height=Math.max(80,r.height*devicePixelRatio)}resize();let t=0;function draw(){t+=.035;const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);const g=ctx.createLinearGradient(0,0,w,0);g.addColorStop(0,"#3ce8ff");g.addColorStop(.55,"#7c4dff");g.addColorStop(1,"#ec5cff");ctx.lineWidth=3*devicePixelRatio;ctx.strokeStyle=g;ctx.beginPath();for(let x=0;x<w;x+=4*devicePixelRatio){const n=active?(Math.sin(x*.017+t*3)+Math.sin(x*.033-t*1.7))*.5:Math.sin(x*.012+t)*.25;const amp=active?h*.26:h*.12;const y=h/2+n*amp*Math.sin((x/w)*Math.PI);if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke();if(document.querySelector('[data-screen="voice"]').classList.contains("active"))waveRAF=requestAnimationFrame(draw)}draw()}
 window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredPrompt=e});$("installBtn").onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}else toast("من Chrome اضغط ⋮ ثم إضافة إلى الشاشة الرئيسية.")};
 initGoogleLogin();authCheck();
 </script>

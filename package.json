@@ -1,12 +1,5 @@
 {
-  "name": "lia-v5-3-google-fixed-mobile",
-  "version": "5.3.0",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.21.2"
-  }
+  "name": "lia-v5-4-clean-mobile-no-overlap",
+  "version": "5.4.0",
+  "type": "module"
 }

@@ -4,7 +4,7 @@ const LIA_USER = process.env.LIA_USER || "hesham1amd";
 const LIA_PASS = process.env.LIA_PASS || "1236542080";
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 const LIA_ALLOWED_EMAIL = process.env.LIA_ALLOWED_EMAIL || "absherlien@gmail.com";
-const LIA_SECRET = process.env.LIA_SESSION_SECRET || crypto.createHash("sha256").update(`${LIA_USER}:${LIA_PASS}:lia-v53-private`).digest("hex");
+const LIA_SECRET = process.env.LIA_SESSION_SECRET || crypto.createHash("sha256").update(`${LIA_USER}:${LIA_PASS}:lia-v54-private`).digest("hex");
 
 const LIA_PERSONALITY = `
 أنتِ ليا، مساعد ذكاء اصطناعي شخصي خاص بهشام فقط.
@@ -20,8 +20,8 @@ const LIA_PERSONALITY = `
 function parseCookies(h=""){return Object.fromEntries(h.split(";").map(p=>p.trim()).filter(Boolean).map(p=>{const i=p.indexOf("=");return i===-1?[p,""]:[p.slice(0,i),decodeURIComponent(p.slice(i+1))]}))}
 function makeToken(){return crypto.createHash("sha256").update(`${LIA_USER}:${LIA_PASS}:${LIA_SECRET}`).digest("hex")}
 function isLoggedIn(req){return parseCookies(req.headers.cookie||"").lia_session===makeToken()}
-function setSessionCookie(res){const secure=process.env.NODE_ENV==="production"?"; Secure":"";res.setHeader("Set-Cookie",`lia_session=${makeToken()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=31536000${secure}`)}
-function clearSessionCookie(res){res.setHeader("Set-Cookie","lia_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0")}
+function setSessionCookie(res){res.setHeader("Set-Cookie",`lia_session=${makeToken()}; HttpOnly; SameSite=Lax; Path=/; Max-Age=31536000; Secure`)}
+function clearSessionCookie(res){res.setHeader("Set-Cookie","lia_session=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0; Secure")}
 function safeJsonParse(text){try{return JSON.parse(text)}catch{return {raw:text}}}
 function getKey(){for(const name of ["GEMINI_API_KEY","GEMINI_KEY","GOOGLE_API_KEY","GOOGLE_AI_API_KEY","GOOGLE_GENERATIVE_AI_API_KEY","GENERATIVE_LANGUAGE_API_KEY"]){const v=process.env[name];if(typeof v==="string"&&v.trim())return{key:v.trim(),source:name,length:v.trim().length}}return{key:"",source:null,length:0}}
 function models(){return [process.env.GEMINI_MODEL,"gemini-2.5-flash","gemini-flash-latest","gemini-2.5-flash-lite"].filter(Boolean)}
@@ -30,7 +30,7 @@ function route(req){const u=new URL(req.url,`https://${req.headers.host||"localh
 
 export default async function handler(req,res){
   const r=route(req);
-  if(r==="config") return res.json({googleClientId:GOOGLE_CLIENT_ID,googleReady:Boolean(GOOGLE_CLIENT_ID),loginMethod:"google",version:"5.3"});
+  if(r==="config") return res.json({googleClientId:GOOGLE_CLIENT_ID,googleReady:Boolean(GOOGLE_CLIENT_ID),loginMethod:"google",version:"5.4"});
   if(r==="auth-check") return res.json({loggedIn:isLoggedIn(req)});
   if(r==="logout"){clearSessionCookie(res);return res.json({ok:true})}
   if(r==="google-login"){
@@ -52,7 +52,7 @@ export default async function handler(req,res){
       return res.json({ok:true,email:profile.email,name:profile.name||"هشام"});
     }catch(error){return res.status(500).json({ok:false,error:"فشل التحقق من Google: "+error.message})}
   }
-  if(r==="health"){const k=getKey();return res.json({name:"LIA",version:"5.3",status:"online",brain:"Gemini",owner:"Hesham",hasGeminiKey:Boolean(k.key),geminiKeySource:k.source,geminiKeyLength:k.length,model:process.env.GEMINI_MODEL||"gemini-2.5-flash"})}
+  if(r==="health"){const k=getKey();return res.json({name:"LIA",version:"5.4",status:"online",brain:"Gemini",owner:"Hesham",hasGeminiKey:Boolean(k.key),geminiKeySource:k.source,geminiKeyLength:k.length,model:process.env.GEMINI_MODEL||"gemini-2.5-flash"})}
   if(r==="chat"){
     if(req.method!=="POST") return res.status(405).json({error:"METHOD_NOT_ALLOWED"});
     if(!isLoggedIn(req)) return res.status(401).json({error:"UNAUTHORIZED",reply:"يا هشام، تحتاج تسجيل الدخول أولًا."});
